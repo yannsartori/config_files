@@ -22,4 +22,5 @@ The following software is expected to be installed:
   4.Set the terminal font to this
   5. Run `python3 -m pip install --user --upgrade pynvim` (Note: This might need to be run for every pyenv entered, in which case, replace `python3` with `python`)
   6. Open `~/.config/nvim/init.vim` (errors will occur) and run `:PlugInstall`
-  7. Reopen Neovim and ensure everything is working.
+  7. Reopen Neovim and ensure everything is working. Then run `:UpdateRemotePlugins`
+  8. Reopen Neovim. Everything should work!!
