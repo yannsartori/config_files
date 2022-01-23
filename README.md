@@ -1,4 +1,6 @@
 # Guide
+Note: Instructions are for MacOS. Realistically, the only thing should change is the package manager.
+
 ## Dependencies
 The following software is expected to be installed:
 
@@ -6,11 +8,14 @@ The following software is expected to be installed:
  - tmux
  - Bash (ignore if using zsh)
  - Zsh (ignore if using bash)
- - Powerline font on viewing machine
+ - Powerline nerd font on viewing machine 
 
 ## Setting Up
-  1. If setting up neovim, make sure to run `python3 -m pip install --user --upgrade pynvim`
-  3. Clone this repo into the home directory
-  4. Install the following brew packages: `brew install cmake python go nodejs mono`
-  5. Open up Neovim and run `:PlugInstall`
-  6. cd into `$HOME/.local/share/nvim/plugged/YouCompleteMe` and run `python3 install.py --all`
+### General
+  1. Clone this repo into the home directory, merging `conf_files` with `$HOME`.
+### Neovim
+  1. Run `brew install neovim`
+  2. Install a Powerline nerd font [from this link](https://github.com/ryanoasis/nerd-fonts#font-installation). Note that space mono nerd font, size 14 has typically been used. Set the terminal font to this
+  3. Run `python3 -m pip install --user --upgrade pynvim` (Note: This might need to be run for every pyenv entered, in which case, replace `python3` with `python`)
+  4. Open `~/.config/nvim/init.vim` (errors will occur) and run `:PlugInstall`
+  5. Reopen Neovim and ensure everything is working.
