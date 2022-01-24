@@ -7,5 +7,7 @@
     "python.linting.flake8Args": [
         "--max-line-length=99",
         "--extend-ignore=D301"
-    ]
+    ],
+
+    "git.addGBlameToVirtualText": true
 }

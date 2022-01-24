@@ -19,6 +19,7 @@ set tabstop=4
 set title
 set updatetime=300
 set foldlevelstart=99
+set signcolumn=yes
 
 " General mappings {{
 let mapleader = " "
@@ -43,7 +44,6 @@ call plug#begin()
 " Aesthetic Plugins {{
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'itchyny/lightline.vim'
-" Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
 " }}
 
@@ -119,11 +119,14 @@ let g:lightline = {
   \     ['mode', 'paste'],
   \     ['cocstatus', 'currentfunction', 'gitbranch', 'readonly', 'filename', 'modified'],
   \   ],
+  \   'right': [
+  \     [ 'filetype', 'lineinfo', 'percent' ],
+  \   ],
   \ },
   \ 'component_function': {
   \   'gitbranch': 'FugitiveHead',
   \   'cocstatus': 'coc#status',
-  \   'currentfunction': 'CocCurrentFunction'
+  \   'currentfunction': 'CocCurrentFunction',
   \ },
 \ }
 " }}
@@ -156,7 +159,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 
 " Coc config {{
 " Default extensions to install if not present
-let g:coc_global_extensions=['coc-sh', 'coc-tsserver', 'coc-pyright', 'coc-json', 'coc-angular']
+let g:coc_global_extensions=['coc-sh', 'coc-tsserver', 'coc-pyright', 'coc-json', 'coc-angular', 'coc-git']
 
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
