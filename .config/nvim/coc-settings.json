@@ -1,0 +1,11 @@
+{
+    "coc.preferences.jumpCommand": "tabe",
+
+    "diagnostic.checkCurrentLine": true,
+
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=99",
+        "--extend-ignore=D301"
+    ]
+}

@@ -1,8 +1,9 @@
-set softtabstop=4
-set shiftwidth=4
-set textwidth=99
-set foldlevel=99
-set foldmethod=indent
+set tabstop=2
+
+" JsDoc config {
+nnoremap <leader>jd :JsDoc<CR>
+let g:jsdoc_formatter = 'tsdoc'
+" }}
 
 " Vanilla auto-closing mappings {{
 inoremap " ""<left>
