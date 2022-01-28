@@ -25,13 +25,12 @@ set signcolumn=yes
 let mapleader = " "
 " }}
 
-" Tab mappings {{
-nnoremap <leader>h :tabprevious<CR>
-nnoremap <leader>l :tabnext<CR>
-nnoremap <leader>mh :Tabmerge left<CR>
-nnoremap <leader>ml :Tabmerge right<CR>
-nnoremap <leader>mj :Tabmerge bottom<CR>
-nnoremap <leader>mk :Tabmerge top<CR>
+" Buffer mappings {{
+nnoremap <leader>h :bprevious<CR>
+nnoremap <leader>l :bnext<CR>
+nnoremap gb :BufferLinePick<CR>
+" Removes it
+nmap <leader>b :bp <BAR> bd #<CR>
 " }}
 
 " Nerd tree mappings
@@ -45,6 +44,7 @@ call plug#begin()
 Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'itchyny/lightline.vim'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'akinsho/bufferline.nvim'
 " }}
 
 " Usability Plugins {{
@@ -52,8 +52,8 @@ Plug 'dhruvasagar/vim-zoom'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-scripts/Tabmerge'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'windwp/nvim-autopairs'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 " }}
@@ -135,9 +135,67 @@ let g:lightline = {
 let g:zoom_tmux_z = v:true
 " }}
 
+" Bufferline config {{
+lua <<EOF
+require("bufferline").setup{
+    options={
+        numbers="ordinal",
+        diagnostics="coc",
+        separator_style="thick",
+    }
+}
+EOF
+" }}
+
 " Telescope config {{
 nnoremap <C-P> <cmd>Telescope find_files<cr>
 nnoremap <C-F> <cmd>Telescope live_grep<cr>
+" }}
+
+" Nvim-autopairs config {{
+lua <<EOF
+local remap = vim.api.nvim_set_keymap
+local npairs = require('nvim-autopairs')
+
+npairs.setup({
+    map_bs=false,
+    map_cr=false,
+    disable_filetype={ "TelescopePrompt" , "vim" },
+})
+
+vim.g.coq_settings = { keymap = { recommended = false } }
+
+-- these mappings are coq recommended mappings unrelated to nvim-autopairs
+remap('i', '<esc>', [[pumvisible() ? "<c-e><esc>" : "<esc>"]], { expr = true, noremap = true })
+remap('i', '<c-c>', [[pumvisible() ? "<c-e><c-c>" : "<c-c>"]], { expr = true, noremap = true })
+remap('i', '<tab>', [[pumvisible() ? "<c-n>" : "<tab>"]], { expr = true, noremap = true })
+remap('i', '<s-tab>', [[pumvisible() ? "<c-p>" : "<bs>"]], { expr = true, noremap = true })
+
+-- skip it, if you use another global object
+_G.MUtils= {}
+
+MUtils.CR = function()
+  if vim.fn.pumvisible() ~= 0 then
+    if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
+      return npairs.esc('<c-y>')
+    else
+      return npairs.esc('<c-e>') .. npairs.autopairs_cr()
+    end
+  else
+    return npairs.autopairs_cr()
+  end
+end
+remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
+
+MUtils.BS = function()
+  if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
+    return npairs.esc('<c-e>') .. npairs.autopairs_bs()
+  else
+    return npairs.autopairs_bs()
+  end
+end
+remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+EOF
 " }}
 
 " Treesitter config {{
