@@ -30,6 +30,7 @@ Plug 'catppuccin/nvim', {'as': 'catppuccin'}
 Plug 'itchyny/lightline.vim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'akinsho/bufferline.nvim'
+Plug 'lukas-reineke/indent-blankline.nvim'
 " }}
 
 " Usability Plugins {{
@@ -122,6 +123,18 @@ require("bufferline").setup{
         diagnostics="coc",
         separator_style="thick",
     }
+}
+EOF
+" }}
+
+" Indent-blankline config {{
+lua <<EOF
+vim.opt.list = true
+
+require("indent_blankline").setup {
+    space_char_blankline = " ",
+    show_current_context = true,
+    show_current_context_start = true,
 }
 EOF
 " }}
