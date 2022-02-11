@@ -6,6 +6,13 @@
         "--max-line-length=99",
         "--extend-ignore=D301"
     ],
+    "python.analysis.typeCheckingMode": "off",
 
-    "git.addGBlameToVirtualText": true
+    "git.addGBlameToVirtualText": true,
+
+    "markdownlint.config": {
+        "MD013": {
+            "code_blocks": false
+        }
+    }
 }
