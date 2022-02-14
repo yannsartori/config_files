@@ -486,8 +486,20 @@ EOF
 " }}
 
 " Custom commands {{
-:command Copy set norelativenumber nonumber signcolumn=no 
-:command Nocopy set relativenumber number signcolumn=yes 
+function _Copy()
+    :CocDisable
+    :IndentBlanklineDisable
+    :set norelativenumber nonumber signcolumn=no
+endfunction
+:command Copy call _Copy()
+
+function _Nocopy()
+    :CocEnable
+    :IndentBlanklineEnable
+    :set relativenumber number signcolumn=yes  
+endfunction
+:command Nocopy call _Nocopy()
+
 " Only here for consistency
 :command Paste set paste
 :command Nopaste set nopaste
