@@ -31,4 +31,5 @@ opt.updatetime = 300
 opt.writebackup = false
 
 g.mapleader = ' '
+-- I forgot why this was added, but seems intriguing
 g.vimsyn_embed= 'lPr'

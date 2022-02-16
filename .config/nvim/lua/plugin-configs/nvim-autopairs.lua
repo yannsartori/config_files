@@ -1,3 +1,4 @@
+local M = {}
 local remap = vim.api.nvim_set_keymap
 local g = vim.g
 local npairs = require('nvim-autopairs')
@@ -10,15 +11,11 @@ npairs.setup {
 
 g.coq_settings = { keymap = { recommended = false } }
 
--- these mappings are coq recommended mappings unrelated to nvim-autopairs
-remap('i', '<c-c>', [[pumvisible() ? '<c-e><c-c>' : '<c-c>']], { expr = true, noremap = true })
-remap('i', '<tab>', [[pumvisible() ? '<c-n>' : '<tab>']], { expr = true, noremap = true })
-remap('i', '<s-tab>', [[pumvisible() ? '<c-p>' : '<bs>']], { expr = true, noremap = true })
+if not _G.plugins then
+    _G.plugins = {}
+end
 
--- skip it, if you use another global object
-_G.MUtils= {}
-
-MUtils.CR = function()
+function M.CR()
   if vim.fn.pumvisible() ~= 0 then
     if vim.fn.complete_info({ 'selected' }).selected ~= -1 then
       return npairs.esc('<c-y>')
@@ -29,13 +26,15 @@ MUtils.CR = function()
     return npairs.autopairs_cr()
   end
 end
-remap('i', '<cr>', 'v:lua.MUtils.CR()', { expr = true, noremap = true })
+remap('i', '<cr>', 'v:lua.plugins.autopairs.CR()', { expr = true, noremap = true })
 
-function MUtils.BS()
+function M.BS()
   if vim.fn.pumvisible() ~= 0 and vim.fn.complete_info({ 'mode' }).mode == 'eval' then
     return npairs.esc('<c-e>') .. npairs.autopairs_bs()
   else
     return npairs.autopairs_bs()
   end
 end
-remap('i', '<bs>', 'v:lua.MUtils.BS()', { expr = true, noremap = true })
+remap('i', '<bs>', 'v:lua.plugins.autopairs.BS()', { expr = true, noremap = true })
+
+_G.plugins.autopairs = M

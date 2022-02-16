@@ -1,5 +1,5 @@
 require('Comment').setup {
-    toggler = {
+    toggler = { -- there was a conflict with mappings, so this "blackholes" it
         block = 'g|c'
     },
     opleader = {

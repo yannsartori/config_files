@@ -75,7 +75,7 @@ g.nvim_tree_icons = {
 
 --  a list of groups can be found at `:help nvim_tree_highlight`
 cmd[[highlight NvimTreeFolderIcon guibg=blue]]
-require'nvim-tree'.setup {
+require('nvim-tree').setup {
     disable_netrw = true,
     hijack_netrw = true,
     open_on_setup = false,

@@ -2,7 +2,6 @@ local colors = require('catppuccin.api.colors').get_colors()
 local fg = require('utils').fg
 local bg = require('utils').bg
 local fg_bg = require('utils').fg_bg
-
 require('telescope').setup {
     defaults = {
         prompt_prefix = '  ',
@@ -31,7 +30,7 @@ require('telescope').setup {
         },
         color_devicons = true,
         use_less = true,
-        set_env = { 
+        set_env = {
             COLORTERM = 'truecolor'
         },
     },
@@ -45,14 +44,14 @@ local red = colors.maroon
 local green = colors.blue
 local black = colors.black0
 
-vim.cmd('hi TelescopeBorder guifg=' .. darker_black .. ' guibg=' .. darker_black)
-vim.cmd('hi TelescopePromptBorder guifg=' .. black2 .. ' guibg=' .. black2)
+fg_bg("TelescopeBorder", darker_black, darker_black)
+fg_bg("TelescopePromptBorder", black2, black2)
 
-vim.cmd('hi TelescopePromptNormal guifg=' .. white .. ' guibg=' .. black2)
-vim.cmd('hi TelescopePromptPrefix guifg=' .. red .. ' guibg=' .. black2)
+fg_bg("TelescopePromptNormal", white, black2)
+fg_bg("TelescopePromptPrefix", red, black2)
 
-vim.cmd('hi TelescopeNormal guibg=' .. darker_black)
+bg("TelescopeNormal", darker_black)
 
-vim.cmd('hi TelescopePreviewTitle guifg=' .. black .. ' guibg=' .. green)
-vim.cmd('hi TelescopePromptTitle guifg=' .. black .. ' guibg=' .. red)
-vim.cmd('hi TelescopeResultsTitle guifg=' .. darker_black .. ' guibg=' .. darker_black)
+fg_bg("TelescopePreviewTitle", black, green)
+fg_bg("TelescopePromptTitle", black, red)
+fg_bg("TelescopeResultsTitle", darker_black, darker_black)

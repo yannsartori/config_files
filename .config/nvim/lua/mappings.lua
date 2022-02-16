@@ -8,7 +8,7 @@ imap('<M-BS>', '<C-W>', {noremap = true})
 -- Better spell fixer
 nmap('<leader>s', 'z=')
 nmap('gs', ']s')
-nmap('gS', '[s0')
+nmap('gS', '[s')
 
 -- Buffer mappings
 nmap('<leader>h', '<CMD>bprevious<CR>')

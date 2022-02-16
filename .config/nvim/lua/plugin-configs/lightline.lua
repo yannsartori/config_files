@@ -1,5 +1,5 @@
 function CocCurrentFunction()
-    return vim.fn.get('b:', 'coc_current_function', '')
+    return vim.fn.get('b:', 'coc_current_function')
 end
 vim.g['lightline'] = {
      colorscheme = 'catppuccin',
@@ -13,8 +13,8 @@ vim.g['lightline'] = {
          },
      },
     component_function = {
-    gitbranch = 'FugitiveHead',
-    cocstatus = 'coc#status',
-    currentfunction = 'CocCurrentFunction',
- },
+        gitbranch = 'FugitiveHead',
+        cocstatus = 'coc#status',
+        currentfunction = 'CocCurrentFunction',
+     },
 }

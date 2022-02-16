@@ -1,6 +1,12 @@
 local cmd = vim.cmd
 local opt = vim.opt
 local M = {}
+
+--- Function to define how to transform vim to facilitate copying.
+-- This includes:
+-- - Disabling coc (to disable git gutter)
+-- - Disabling blankline tab guidelines
+-- - Clearing the gutter
 function M.copy()
     cmd('CocDisable')
     cmd('IndentBlanklineDisable')
@@ -10,6 +16,8 @@ function M.copy()
 end
 cmd('command -nargs=0 Copy lua require("commands").copy()')
 
+--- Function to define how to revert from Copy mode.
+-- c.f. copy(), as this function is its inverse
 function M.nocopy()
     cmd('CocEnable')
     cmd('IndentBlanklineEnable')
@@ -19,6 +27,7 @@ function M.nocopy()
 end
 cmd('command -nargs=0 Nocopy lua require("commands").nocopy()')
 
+-- Here for consistency
 cmd('command -nargs=0 Paste set paste')
 cmd('command -nargs=0 Nopaste set nopaste')
 
@@ -32,7 +41,9 @@ autocmd InsertLeave * setlocal relativenumber
 -- }}
 
 -- Coc commands
+-- Add `:Format` command
 cmd('command -nargs=0 Format :call CocActionAsync("format")')
+
 -- Add `:Fold` command to fold current buffer.
 cmd('command! -nargs=? Fold :call CocAction("fold", <f-args>)')
 
