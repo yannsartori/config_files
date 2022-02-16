@@ -8,7 +8,7 @@ function M.copy()
     opt.number = false
     opt.signcolumn = 'no'
 end
-vim.cmd('command Copy lua require("commands").copy()')
+cmd('command -nargs=0 Copy lua require("commands").copy()')
 
 function M.nocopy()
     cmd('CocEnable')
@@ -17,10 +17,10 @@ function M.nocopy()
     opt.number = true
     opt.signcolumn = 'yes'
 end
-cmd('command Nocopy lua require("commands").nocopy()')
+cmd('command -nargs=0 Nocopy lua require("commands").nocopy()')
 
-cmd('command Paste set paste')
-cmd('command Nopaste set nopaste')
+cmd('command -nargs=0 Paste set paste')
+cmd('command -nargs=0 Nopaste set nopaste')
 
 -- Custom insert entering/leaving logic {{
 cmd([[
@@ -30,4 +30,17 @@ autocmd InsertLeave * setlocal nospell
 autocmd InsertLeave * setlocal relativenumber
 ]])
 -- }}
+
+-- Coc commands
+cmd('command -nargs=0 Format :call CocActionAsync("format")')
+-- Add `:Fold` command to fold current buffer.
+cmd('command! -nargs=? Fold :call CocAction("fold", <f-args>)')
+
+-- Add `:OR` command for organize imports of the current buffer.
+cmd('command! -nargs=0 OR :call CocActionAsync("runCommand", "editor.action.organizeImport")')
+
+-- Highlight the symbol and its references when holding the cursor.
+cmd([[
+autocmd CursorHold * silent call CocActionAsync('highlight')
+]])
 return M

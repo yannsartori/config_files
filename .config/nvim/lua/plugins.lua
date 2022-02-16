@@ -25,7 +25,15 @@ Plug 'yannsartori/neovim-jsdoc.py'
 -- }}
 
 -- LSP Plugins {{
-Plug('neoclide/coc.nvim', {branch = 'release'})
+Plug 'neoclide/coc.nvim'
+-- Plug 'hrsh7th/nvim-cmp'
+-- Plug 'hrsh7th/cmp-buffer'
+-- Plug 'hrsh7th/cmp-path'
+-- Plug 'hrsh7th/cmp-cmdline'
+-- Plug 'hrsh7th/cmp-nvim-lsp'
+-- Plug 'hrsh7th/cmp-nvim-lua'
+-- Plug 'williamboman/nvim-lsp-installer'
+-- Plug 'neovim/nvim-lspconfig'
 -- }}
 
 -- HTML Plugins {{
@@ -36,10 +44,12 @@ call('plug#end')
 -- Plugin configs
 local configurable_plugins = {
     'lightline', 'bufferline', 'indent-blankline', 'vim-zoom', 'nvim-tree', 'nvim-autopairs',
-    'comment', 'treesitter', 'telescope',
+    'comment', 'treesitter', 'telescope'
 }
 require('plugin-configs/catpuccin')
 cmd('colorscheme catppuccin')
 for _, plugin in ipairs(configurable_plugins) do
     require('plugin-configs/' .. plugin)
 end
+
+require('coc')

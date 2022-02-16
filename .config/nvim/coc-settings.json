@@ -14,5 +14,7 @@
         "MD013": {
             "code_blocks": false
         }
-    }
+    },
+
+    "sumneko-lua.enableNvimLuaDev": true
 }

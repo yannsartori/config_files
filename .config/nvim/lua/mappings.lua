@@ -3,7 +3,7 @@ local nmap = require('utils').nmap
 local imap = require('utils').imap
 
 -- Delete entire words
-imap('<M-BS>', '<C-W>')
+imap('<M-BS>', '<C-W>', {noremap = true})
 
 -- Better spell fixer
 nmap('<leader>s', 'z=')

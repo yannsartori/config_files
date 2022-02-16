@@ -9,4 +9,4 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap {;<CR> {<CR>};<ESC>O
 " }}
 " Automatically start coc-angular
-:call CocActionAsync('activeExtension', 'coc-angular') 
+" :call CocActionAsync('activeExtension', 'coc-angular') 
