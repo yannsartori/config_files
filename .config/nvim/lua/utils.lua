@@ -1,5 +1,6 @@
 local M = {}
 local cmd = vim.cmd
+local api = vim.api
 
 --- Wrap for the vim.api.nvim_set_keymap function
 --
@@ -14,7 +15,7 @@ function M.map(mode, shortcut, command, opts)
         silent = true,
         expr = false,
     })
-    vim.api.nvim_set_keymap(mode, shortcut, command, opts)
+    api.nvim_set_keymap(mode, shortcut, command, opts)
 end
 
 --- Does a normal, recursive, silent mapping
@@ -33,6 +34,44 @@ end
 -- @param opts - Any additionally options to use (expr, noremap, silent)
 function M.imap(shortcut, command, opts)
     M.map('i', shortcut, command, opts)
+end
+
+
+--- Wrap for the vim.api.nvim_buf_set_keymap function
+--
+-- By default, the mapping is a recursive, silent mapping.
+-- @param buffnr - The buffer number to map on
+-- @param mode - The mode (single letter) to use
+-- @param shortcut - The shortcut to map
+-- @param command - The command to map the short cut to
+-- @param opts - Any additionally options to use (expr, noremap, silent)
+function M.bmap(buffnr, mode, shortcut, command, opts)
+    opts = vim.tbl_extend('keep', opts or {}, {
+        noremap = false,
+        silent = true,
+        expr = false,
+    })
+    api.nvim_buf_set_keymap(buffnr, mode, shortcut, command, opts)
+end
+
+--- Does a normal, recursive, silent mapping on bufnr
+--
+-- @param bufnr - The buffer number to map on
+-- @param shortcut - The shortcut to map
+-- @param command - The command to map the short cut to
+-- @param opts - Any additionally options to use (expr, noremap, silent)
+function M.bnmap(buffnr, shortcut, command, opts)
+  M.bmap(buffnr, 'n', shortcut, command, opts)
+end
+
+--- Does a insert, recursive, silent mapping on bufnr
+--
+-- @param bufnr - The buffer number to map on
+-- @param shortcut - The shortcut to map
+-- @param command - The command to map the short cut to
+-- @param opts - Any additionally options to use (expr, noremap, silent)
+function M.bimap(buffnr, shortcut, command, opts)
+  M.bmap(buffnr, 'i', shortcut, command, opts)
 end
 
 --- Map a lua function

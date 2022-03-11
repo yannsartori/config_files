@@ -40,18 +40,4 @@ autocmd InsertLeave * setlocal relativenumber
 ]])
 -- }}
 
--- Coc commands
--- Add `:Format` command
-cmd('command -nargs=0 Format :call CocActionAsync("format")')
-
--- Add `:Fold` command to fold current buffer.
-cmd('command! -nargs=? Fold :call CocAction("fold", <f-args>)')
-
--- Add `:OR` command for organize imports of the current buffer.
-cmd('command! -nargs=0 OR :call CocActionAsync("runCommand", "editor.action.organizeImport")')
-
--- Highlight the symbol and its references when holding the cursor.
-cmd([[
-autocmd CursorHold * silent call CocActionAsync('highlight')
-]])
 return M

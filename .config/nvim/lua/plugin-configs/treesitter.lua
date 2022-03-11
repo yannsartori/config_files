@@ -11,4 +11,7 @@ require('nvim-treesitter.configs').setup {
     incremental_selection = {
         enable = true,
     },
+    playground = {
+      enable = true,
+    }
 }

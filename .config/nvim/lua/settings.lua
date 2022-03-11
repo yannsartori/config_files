@@ -16,7 +16,7 @@ opt.number = true
 opt.relativenumber = true
 opt.scrolloff = 10
 opt.signcolumn = 'yes'
-opt.shiftwidth = 0
+opt.shiftwidth = 4
 opt.shortmess:append 'c'
 opt.showmatch = true
 opt.showmode = false
