@@ -1,9 +1,8 @@
-local bg = require('utils').bg
-local fg = require('utils').fg
-local fg_bg = require('utils').fg_bg
-local colors = require('catppuccin.api.colors').get_colors()
+local bg = require("utils").bg
+local fg = require("utils").fg
+local fg_bg = require("utils").fg_bg
+local colors = require("catppuccin.api.colors").get_colors()
 
--- TODO make this better
 local darker_black = colors.black1
 local black3 = colors.black3
 local black3p5 = "#313040"
