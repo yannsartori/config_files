@@ -67,6 +67,7 @@ local configurable_plugins = {
 }
 
 -- Do impatient first for performance
+require('impatient')
 -- Do catpuccin to be able to set the colorscheme
 require("plugin-configs/catpuccin")
 cmd("colorscheme catppuccin")
