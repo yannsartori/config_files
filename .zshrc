@@ -40,7 +40,7 @@ tmux_output=`tls 2> /dev/null`
 #     # alias vim='nvim'
 # fi
 
-eval "$(pyenv init -)"
+eval "$(pyenv init --path)"
 eval $(docker-machine env default)
 
 export PATH="$HOME/.poetry/bin:$PATH"

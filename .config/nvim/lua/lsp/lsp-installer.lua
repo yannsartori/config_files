@@ -1,5 +1,19 @@
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
+
+-- Installed servers:
+-- angularls (npm install -g @angular/language-service@next typescript @angular/language-server)
+-- bashls
+-- cssls
+-- dockerls
+-- html
+-- jsonls
+-- pyright
+-- sumneko_lua
+-- tsserver
+-- vimls
+-- yamlls
+-- zk (brew install zk)
 require("nvim-lsp-installer").on_server_ready(function(server)
 	local opts = {
 		on_attach = require("lsp.handlers").on_attach,
