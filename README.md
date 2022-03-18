@@ -7,6 +7,7 @@ The following software is expected to be installed:
  - Iterm2 (or any terminal with true color)
  - fd
  - ripgrep
+ - glow
  - Neovim
  - tmux
  - Bash (ignore if using zsh)
@@ -21,7 +22,7 @@ The following software is expected to be installed:
   2. Go to Preferences -> General > Preferences
   3. Check "load preferences from directory" and select the ~/.config/iterm2-preferences directory
 ### Neovim
-  1. Run `brew install neovim fd ripgrep`
+  1. Run `brew install neovim fd ripgrep glowt`
   1. Install a Powerline nerd font by doing the following:
        1. Run `brew tap homebrew/cask-fonts`
        1. Install a nerd font by running `brew install --cask font-${NERD_FONT_NAME}`. Note that historically this has been `font-hack-nerd-font`.
