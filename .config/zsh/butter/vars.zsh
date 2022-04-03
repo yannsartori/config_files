@@ -3,7 +3,6 @@ export CPPFLAGS="-I/usr/local/opt/readline/include"
 export DISABLE_AUTO_TITLE=true
 export HISTFILE=~/.zsh_history
 export HISTSIZE=999999999
-export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export LDFLAGS="-L/usr/local/opt/readline/lib"
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export REQUESTS_CA_BUNDLE=/Users/sartori2/Documents/darc/mkdocs/docs/files/ca-bundle.crt
