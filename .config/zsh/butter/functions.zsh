@@ -1,0 +1,1 @@
+../home/functions.zsh

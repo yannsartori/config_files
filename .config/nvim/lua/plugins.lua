@@ -24,6 +24,7 @@ Plug("nvim-treesitter/nvim-treesitter", { ["do"] = vim.fn["TSUpdate"] })
 Plug("nvim-treesitter/playground")
 Plug("tpope/vim-surround")
 Plug("windwp/nvim-autopairs")
+Plug("iamcco/markdown-preview.nvim", { ["do"] = "cd app && yarn install" })
 -- }}
 
 -- LSP Plugins {{
