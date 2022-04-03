@@ -9,13 +9,14 @@ The following software is expected to be installed:
  - ripgrep
  - Neovim
  - tmux
- - Bash (ignore if using zsh)
- - Zsh (ignore if using bash)
+ - zsh
  - Powerline nerd font on viewing machine 
 
 ## Setting Up
 ### General
   1. Clone this repo into the home directory, merging `conf_files` with `$HOME`.
+### Zsh
+Add a soft link for `.zshrc` to point to `.config/zsh/name_of_machine/.zshrc`
 ### Iterm2
   1. Run `brew install --cask iterm2`
   2. Go to Preferences -> General > Preferences
