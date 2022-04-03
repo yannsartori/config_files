@@ -3,7 +3,8 @@ local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
 
 null_ls.setup({
-	debug = false,
+	debug = true,
+  on_attach = require("lsp.handlers").on_attach,
 	sources = {
 		formatting.prettier, -- Install in project dev dep (or npm i -g prettier)
 		formatting.stylua, -- brew install cargo && cargo install stylua

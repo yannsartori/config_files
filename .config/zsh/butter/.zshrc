@@ -1,3 +1,4 @@
+neofetch
 base="$HOME/.config/zsh/butter"
 
 # Order here is important

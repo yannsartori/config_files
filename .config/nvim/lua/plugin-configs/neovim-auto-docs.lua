@@ -1,1 +1,1 @@
-require("neovim-auto-docs")
+require("neovim-auto-docs").setup()
