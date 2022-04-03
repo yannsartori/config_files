@@ -1,0 +1,13 @@
+*
+
+!.gitignore
+!.tmux.conf
+!.vimrc
+!README.md
+!.config
+!.config/iterm2-preferences
+!.config/iterm2-preferences/**
+!.config/nvim
+!.config/nvim/**
+!.config/zsh
+!.config/zsh/**
