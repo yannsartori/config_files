@@ -14,6 +14,7 @@ Plug("lukas-reineke/indent-blankline.nvim")
 -- Usability Plugins {{
 Plug("dhruvasagar/vim-zoom")
 Plug("dstein64/vim-startuptime")
+Plug("iamcco/markdown-preview.nvim", { ["do"] = "cd app && yarn install" })
 Plug("kyazdani42/nvim-tree.lua")
 Plug("lewis6991/gitsigns.nvim")
 Plug("lewis6991/impatient.nvim")
@@ -22,6 +23,7 @@ Plug("nvim-lua/plenary.nvim")
 Plug("nvim-telescope/telescope.nvim")
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = vim.fn["TSUpdate"] })
 Plug("nvim-treesitter/playground")
+Plug("tpope/vim-repeat")
 Plug("tpope/vim-surround")
 Plug("windwp/nvim-autopairs")
 -- }}
@@ -48,7 +50,7 @@ Plug("windwp/nvim-ts-autotag")
 -- }}
 
 -- Custom Plugins {{
-Plug("/Users/sartori2/Desktop/neovim-auto-docs")
+Plug("yannsartori/neovim-auto-docs")
 -- }}
 call("plug#end")
 
@@ -59,6 +61,7 @@ local configurable_plugins = {
 	"feline",
 	"gitsigns",
 	"indent-blankline",
+	"neovim-auto-docs",
 	"nvim-autopairs",
 	"nvim-tree",
 	"telescope",

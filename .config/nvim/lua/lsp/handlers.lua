@@ -1,5 +1,6 @@
 local M = {}
 local api = vim.api
+local bmap = require("utils").bmap
 local bnmap = require("utils").bnmap
 
 function M.setup()
@@ -42,7 +43,8 @@ function M.setup()
 		signs = true,
 	})
 
-	vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float()]])
+  -- TODO disable this if hover is enabled
+	-- vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float()]])
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 		border = "rounded",
@@ -80,12 +82,15 @@ local function lsp_keymaps(bufnr)
 	bnmap(bufnr, "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	bnmap(bufnr, "gE", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
 	bnmap(bufnr, "ge", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	bnmap(bufnr, "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 
 	-- Less common
 	bnmap(bufnr, "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	bnmap(bufnr, "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
 	bnmap(bufnr, "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
 	bnmap(bufnr, "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	bmap(bufnr, "v", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+	bmap(bufnr, "x", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 
 	-- Only here just because
 	bnmap(bufnr, "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
@@ -97,6 +102,7 @@ end
 function M.on_attach(client, bufnr)
 	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.rename = false -- Let angular do this
 	end
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
