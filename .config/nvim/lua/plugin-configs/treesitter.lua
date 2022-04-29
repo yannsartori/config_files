@@ -14,9 +14,9 @@ require("nvim-treesitter.configs").setup({
 		"yaml",
 	},
 	sync_install = false,
-    autotag = {
-        enable = true,
-    },
+	autotag = {
+		enable = true,
+	},
 	highlight = {
 		enable = true,
 		additional_vim_regex_highlighting = true,

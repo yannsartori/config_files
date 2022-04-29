@@ -9,9 +9,11 @@ Plug("catppuccin/nvim", { as = "catppuccin" })
 Plug("feline-nvim/feline.nvim")
 Plug("kyazdani42/nvim-web-devicons")
 Plug("lukas-reineke/indent-blankline.nvim")
+Plug("norcalli/nvim-colorizer.lua")
 -- }}
 
 -- Usability Plugins {{
+Plug("akinsho/git-conflict.nvim")
 Plug("dhruvasagar/vim-zoom")
 Plug("dstein64/vim-startuptime")
 Plug("iamcco/markdown-preview.nvim", { ["do"] = "cd app && yarn install" })
@@ -20,13 +22,13 @@ Plug("lewis6991/gitsigns.nvim")
 Plug("lewis6991/impatient.nvim")
 Plug("numToStr/Comment.nvim")
 Plug("nvim-lua/plenary.nvim")
+Plug("nvim-telescope/telescope-fzf-native.nvim", { ["do"] = "make" })
 Plug("nvim-telescope/telescope.nvim")
 Plug("nvim-treesitter/nvim-treesitter", { ["do"] = vim.fn["TSUpdate"] })
 Plug("nvim-treesitter/playground")
 Plug("tpope/vim-repeat")
 Plug("tpope/vim-surround")
 Plug("windwp/nvim-autopairs")
-Plug("iamcco/markdown-preview.nvim", { ["do"] = "cd app && yarn install" })
 -- }}
 
 -- LSP Plugins {{
@@ -58,9 +60,11 @@ call("plug#end")
 -- Plugin configs
 local configurable_plugins = {
 	"bufferline",
+	"colorizer",
 	"comment",
 	"feline",
 	"gitsigns",
+	"git-conflict",
 	"indent-blankline",
 	"neovim-auto-docs",
 	"nvim-autopairs",
@@ -71,7 +75,7 @@ local configurable_plugins = {
 }
 
 -- Do impatient first for performance
-require('impatient')
+require("impatient")
 -- Do catpuccin to be able to set the colorscheme
 require("plugin-configs/catpuccin")
 cmd("colorscheme catppuccin")
@@ -81,5 +85,4 @@ for _, plugin in ipairs(configurable_plugins) do
 end
 
 -- Do coc at the end
--- require('coc')
 require("lsp")

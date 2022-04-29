@@ -1,7 +1,7 @@
 local M = {}
 local api = vim.api
-local bmap = require("utils").bmap
-local bnmap = require("utils").bnmap
+local map = require("utils").map
+local nmap = require("utils").nmap
 
 function M.setup()
 	local signs = {
@@ -43,7 +43,7 @@ function M.setup()
 		signs = true,
 	})
 
-  -- TODO disable this if hover is enabled
+	-- TODO disable this if hover is enabled
 	-- vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float()]])
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -58,7 +58,7 @@ end
 -- Highlight on cursor hold
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
+	if client.resolved_capabilities.document_highlight and client.name ~= "html" then
 		api.nvim_exec(
 			[[
       augroup lsp_document_highlight
@@ -74,35 +74,34 @@ end
 
 -- Mappings.
 local function lsp_keymaps(bufnr)
-	local opts = { noremap = true, silent = true }
+	-- Use Telescope as much as possible
+	local opts = { buffer = bufnr }
 	-- Common mappings
-	bnmap(bufnr, "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-	bnmap(bufnr, "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	bnmap(bufnr, "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	bnmap(bufnr, "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	bnmap(bufnr, "gE", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-	bnmap(bufnr, "ge", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	bnmap(bufnr, "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	nmap("gd", "<cmd>Telescope lsp_definitions<CR>", opts)
+	nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+	nmap("gr", "<cmd>Telescope lsp_references<CR>", opts)
+	nmap("<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+	nmap("gE", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
+	nmap("ge", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
+	nmap("gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 
 	-- Less common
-	bnmap(bufnr, "<leader>e", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
-	bnmap(bufnr, "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	bnmap(bufnr, "gy", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-	bnmap(bufnr, "<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-	bmap(bufnr, "v", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-	bmap(bufnr, "x", "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+	nmap("gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+	nmap("gy", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+	nmap("<leader>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+	map({ "v", "x" }, "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 
 	-- Only here just because
-	bnmap(bufnr, "<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	bnmap(bufnr, "<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-	bnmap(bufnr, "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-	bnmap(bufnr, "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	nmap("<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+	nmap("<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+	nmap("<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+	nmap("<leader>ca", "<cmd>Telescope lsp_code_actions<CR>", opts)
 end
 
 function M.on_attach(client, bufnr)
 	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false
-    client.resolved_capabilities.rename = false -- Let angular do this
+		client.resolved_capabilities.rename = false -- Let angular do this
 	end
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)

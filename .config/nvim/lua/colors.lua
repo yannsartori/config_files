@@ -18,6 +18,9 @@ local black = colors.black0
 -- Line number
 fg("cursorlinenr", white)
 
+-- Window splits
+fg("WinSeparator", white)
+
 -- Hide
 fg("EndOfBuffer", black)
 

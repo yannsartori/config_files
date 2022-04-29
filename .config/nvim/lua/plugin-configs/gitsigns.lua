@@ -1,4 +1,4 @@
-local bmap = require("utils").bmap
+local map = require("utils").map
 require("gitsigns").setup({
 	signs = {
 		add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
@@ -15,11 +15,9 @@ require("gitsigns").setup({
 	current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
 	on_attach = function(bufnr)
 		-- Navigation
-		bmap(bufnr, "n", "gc", "&diff ? ']c' : '<cmd>Gitsigns next_hunk<CR>'", { expr = true })
-		bmap(bufnr, "n", "gC", "&diff ? '[c' : '<cmd>Gitsigns prev_hunk<CR>'", { expr = true })
-
+		local opts = { buffer = bufnr, expr = true }
 		-- Actions
-		bmap(bufnr, "n", "<leader>cp", "<cmd>Gitsigns preview_hunk<CR>")
-		bmap(bufnr, "n", "<leader>cd", "<cmd>Gitsigns diffthis<CR>")
+		map("n", "<leader>cp", "<cmd>Gitsigns preview_hunk<CR>", { buffer = bufnr })
+		map("n", "<leader>cd", "<cmd>Gitsigns diffthis<CR>", { buffer = bufnr })
 	end,
 })

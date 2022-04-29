@@ -5,8 +5,8 @@
 !.vimrc
 !README.md
 !.config
-!.config/iterm2-preferences
-!.config/iterm2-preferences/**
+!.config/alacritty
+!.config/alacritty/**
 !.config/nvim
 !.config/nvim/**
 !.config/zsh
