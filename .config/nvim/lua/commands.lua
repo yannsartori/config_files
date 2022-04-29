@@ -1,43 +1,72 @@
 local cmd = vim.cmd
 local opt = vim.opt
-local M = {}
+local api = vim.api
+local fn = vim.fn
 
 --- Function to define how to transform vim to facilitate copying.
 -- This includes:
 -- - Disabling coc (to disable git gutter)
 -- - Disabling blankline tab guidelines
 -- - Clearing the gutter
-function M.copy()
+local function copy()
 	cmd("Gitsigns detach")
 	cmd("IndentBlanklineDisable")
 	opt.relativenumber = false
 	opt.number = false
 	opt.signcolumn = "no"
 end
-cmd('command -nargs=0 Copy lua require("commands").copy()')
+api.nvim_create_user_command("Copy", copy, {})
 
 --- Function to define how to revert from Copy mode.
 -- c.f. copy(), as this function is its inverse
-function M.nocopy()
+local function nocopy()
 	cmd("Gitsigns attach")
 	cmd("IndentBlanklineEnable")
 	opt.relativenumber = true
 	opt.number = true
 	opt.signcolumn = "yes"
 end
-cmd('command -nargs=0 Nocopy lua require("commands").nocopy()')
+api.nvim_create_user_command("Nocopy", nocopy, {})
 
 -- Here for consistency
-cmd("command -nargs=0 Paste set paste")
-cmd("command -nargs=0 Nopaste set nopaste")
+api.nvim_create_user_command("Paste", function()
+	opt.paste = true
+end, {})
+api.nvim_create_user_command("Nopaste", function()
+	opt.paste = false
+end, {})
+
+-- Less typing
+api.nvim_create_user_command("Status", function()
+	cmd("Telescope git_status")
+end, {})
 
 -- Custom insert entering/leaving logic {{
+local function insertToggle(toggle)
+	return function()
+		opt.relativenumber = not toggle
+		opt.spell = toggle
+	end
+end
+api.nvim_create_autocmd({ "InsertEnter" }, {
+	pattern = "*",
+	callback = insertToggle(true),
+})
+api.nvim_create_autocmd({ "InsertLeave" }, {
+	pattern = "*",
+	callback = insertToggle(false),
+})
+api.nvim_create_autocmd({ "BufReadPost" }, {
+	pattern = "*",
+	callback = function()
+		if fn.line("'\"") > 0 and fn.line("'\"") <= fn.line("$") then
+			fn.setpos(".", fn.getpos("'\""))
+			vim.api.nvim_feedkeys("zz", "n", true)
+		end
+	end,
+})
+
 cmd([[
-autocmd InsertEnter * setlocal spell
-autocmd InsertEnter * setlocal norelativenumber
-autocmd InsertLeave * setlocal nospell
-autocmd InsertLeave * setlocal relativenumber
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
 ]])
 -- }}
-
-return M

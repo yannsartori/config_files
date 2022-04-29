@@ -22,12 +22,18 @@ vim.g.nvim_tree_icons = {
 }
 
 require("nvim-tree").setup({
+	actions = {
+		open_file = {
+			resize_window = true,
+		},
+	},
 	disable_netrw = true,
 	diagnostics = {
 		enable = true,
 	},
 	git = {
 		enable = true,
+		ignore = false,
 		timeout = 500,
 	},
 })

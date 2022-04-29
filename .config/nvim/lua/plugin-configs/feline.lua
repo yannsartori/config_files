@@ -345,7 +345,8 @@ components.active[3][2] = {
 		return " " .. icon .. " " .. filename .. " "
 	end,
 	enabled = shortline or function(winid)
-		return vim.api.nvim_win_get_width(winid) > 70
+		winid = winid or 0
+		return vim.api.nvim_win_get_width(winid + 0) > 70
 	end,
 	hl = {
 		fg = sett.bkg,
@@ -367,7 +368,8 @@ components.active[3][3] = {
 	end,
 
 	enabled = shortline or function(winid)
-		return vim.api.nvim_win_get_width(winid) > 80
+		winid = winid or 0
+		return vim.api.nvim_win_get_width(winid + 0) > 80
 	end,
 
 	hl = {
