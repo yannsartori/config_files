@@ -22,8 +22,7 @@ font:
   bold_italic:
     family: Hack Nerd font
     style: Bold Italic
-  size: 15.5
-  use_thin_strokes: true
+  size: 15.0
 # Catppuccin!
 
 custom_cursor_colors: true
@@ -31,7 +30,7 @@ custom_cursor_colors: true
 colors:
   # Default colors
   primary:
-    background: '0x2B2B2B'
+    background: '0x1E1E2E'
     foreground: '0xD9E0EE'
 
   # Colors the cursor will use if `custom_cursor_colors` is true
@@ -70,6 +69,7 @@ key_bindings:
   - { key: K, mods: Alt, action: IncreaseFontSize }
   - { key: Down, mods: Alt, action: DecreaseFontSize }
   - { key: J, mods: Alt, action: DecreaseFontSize }
+  - { key: Slash, mods: Control, chars: "\x1f" }
 
 mouse:
   hide_when_typing: true

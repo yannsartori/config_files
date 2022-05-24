@@ -10,6 +10,7 @@ Plug("feline-nvim/feline.nvim")
 Plug("kyazdani42/nvim-web-devicons")
 Plug("lukas-reineke/indent-blankline.nvim")
 Plug("norcalli/nvim-colorizer.lua")
+Plug("stevearc/dressing.nvim")
 -- }}
 
 -- Usability Plugins {{
@@ -63,8 +64,8 @@ local configurable_plugins = {
 	"colorizer",
 	"comment",
 	"feline",
-	"gitsigns",
 	"git-conflict",
+	"gitsigns",
 	"indent-blankline",
 	"neovim-auto-docs",
 	"nvim-autopairs",
