@@ -65,8 +65,4 @@ api.nvim_create_autocmd({ "BufReadPost" }, {
 		end
 	end,
 })
-
-cmd([[
-autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
-]])
 -- }}
