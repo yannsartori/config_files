@@ -43,9 +43,6 @@ function M.setup()
 		signs = true,
 	})
 
-	-- TODO disable this if hover is enabled
-	-- vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float()]])
-
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 		border = "rounded",
 	})
@@ -58,7 +55,7 @@ end
 -- Highlight on cursor hold
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight and client.name ~= "html" then
+	if client.server_capabilities.documentHighlightProvider and client.name ~= "html" then
 		api.nvim_exec(
 			[[
       augroup lsp_document_highlight
@@ -89,8 +86,20 @@ local function formatting_map(client, bufnr)
     vim.keymap.set('n', '<leader>f', function()
       local params = require('vim.lsp.util').make_formatting_params({})
       client.request('textDocument/formatting', params, nil, bufnr)
-    end, {buffer = bufnr})
+    end, { buffer = bufnr })
   end
+end
+
+local lsp_formatting = function(bufnr)
+    vim.lsp.buf.format({
+        filter = function(clients)
+            -- filter out clients that you don't want to use
+            return vim.tbl_filter(function(client)
+                return client.name ~= "tsserver"
+            end, clients)
+        end,
+        bufnr = bufnr,
+    })
 end
 
 local function lsp_keymaps(client, bufnr)
@@ -109,6 +118,7 @@ local function lsp_keymaps(client, bufnr)
 	-- Less common
 	nmap("gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 	nmap("gy", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+  -- nmap("<leader>f", lsp_formatting(bufnr), opts)
   formatting_map(client, bufnr)
 	map({ "v", "x" }, "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 
@@ -121,7 +131,7 @@ end
 
 function M.on_attach(client, bufnr)
   if client.name == "tsserver" then
-    client.server_capabilities.renameProvider = false -- let angular handle this
+    client.server_capabilities.renameProvider = false
   end
 	lsp_keymaps(client, bufnr)
 	lsp_highlight_document(client)
@@ -134,11 +144,3 @@ M.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 -- Do so we can bind global functions
 _G.lsp.handlers = M
 return M
-
--- require('lspconfig').sumneko_lua.setup {
---   on_attach = on_attach,
---   cmd = { './lua-language-server/bin/lua-language-server' },
---   flags = {
---     debounce_text_changes = 150,
---   },
--- }

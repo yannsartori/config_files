@@ -1,6 +1,7 @@
 vim.lsp.set_log_level("debug")
 require("settings")
 require("plugins")
+require("scripts")
 require("commands")
 require("mappings")
 require("colors")

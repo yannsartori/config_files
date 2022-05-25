@@ -1,3 +1,13 @@
+require("nvim-web-devicons").setup({
+	override = {
+		["spec.ts"] = {
+			icon = "ﭧ",
+			color = "#ABE9B3",
+			cterm_color = "65",
+			name = "spec",
+		},
+	},
+})
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
 vim.g.nvim_tree_icons = {
