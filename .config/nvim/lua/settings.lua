@@ -30,6 +30,7 @@ opt.title = true
 opt.updatetime = 300
 opt.writebackup = false
 opt.laststatus = 3
+opt.cmdheight = 0
 
 g.mapleader = " "
 -- I forgot why this was added, but seems intriguing

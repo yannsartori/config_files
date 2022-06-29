@@ -1,25 +1,41 @@
+require("nvim-web-devicons").setup({
+	override = {
+		["spec.ts"] = {
+			icon = "ﭧ",
+			color = "#ABE9B3",
+			cterm_color = "65",
+			name = "spec",
+		},
+		["module.ts"] = {
+			icon = "",
+			color = "#F5C2E7",
+			cterm_color = "65",
+			name = "module",
+		},
+	},
+})
 -- following options are the default
 -- each of these are documented in `:help nvim-tree.OPTION_NAME`
-vim.g.nvim_tree_icons = {
-	default = "",
-	symlink = "",
-	git = {
-		unstaged = "",
-		staged = "S",
-		unmerged = "",
-		renamed = "➜",
-		deleted = "",
-		untracked = "U",
-		ignored = "◌",
-	},
-	folder = {
-		default = "",
-		open = "",
-		empty = "",
-		empty_open = "",
-		symlink = "",
-	},
-}
+-- vim.g.nvim_tree_icons = {
+-- 	default = "",
+-- 	symlink = "",
+-- 	git = {
+-- 		unstaged = "",
+-- 		staged = "S",
+-- 		unmerged = "",
+-- 		renamed = "➜",
+-- 		deleted = "",
+-- 		untracked = "U",
+-- 		ignored = "◌",
+-- 	},
+-- 	folder = {
+-- 		default = "",
+-- 		open = "",
+-- 		empty = "",
+-- 		empty_open = "",
+-- 		symlink = "",
+-- 	},
+-- }
 
 require("nvim-tree").setup({
 	actions = {
@@ -36,4 +52,28 @@ require("nvim-tree").setup({
 		ignore = false,
 		timeout = 500,
 	},
+  renderer = {
+    icons = {
+      glyphs = {
+        default = "",
+        symlink = "",
+        git = {
+          unstaged = "",
+          staged = "S",
+          unmerged = "",
+          renamed = "➜",
+          deleted = "",
+          untracked = "U",
+          ignored = "◌",
+        },
+        folder = {
+          default = "",
+          open = "",
+          empty = "",
+          empty_open = "",
+          symlink = "",
+        },
+      },
+    },
+  },
 })

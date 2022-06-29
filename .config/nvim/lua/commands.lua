@@ -41,6 +41,12 @@ api.nvim_create_user_command("Status", function()
 	cmd("Telescope git_status")
 end, {})
 
+-- Get the path
+api.nvim_create_user_command("Path", function()
+    local filename = vim.api.nvim_buf_get_name(0)
+    vim.cmd('let @+="' .. filename .. '"')
+end, {})
+
 -- Custom insert entering/leaving logic {{
 local function insertToggle(toggle)
 	return function()

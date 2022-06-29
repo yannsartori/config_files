@@ -37,6 +37,6 @@ require("telescope").setup({
 		set_env = {
 			COLORTERM = "truecolor",
 		},
-		file_ignore_patterns = { "lua-language-server" },
+		file_ignore_patterns = { "lua-language-server", "e2e" },
 	},
 })

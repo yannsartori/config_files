@@ -48,3 +48,7 @@ nmap("<leader>gC", "<Plug>(git-conflict-prev-conflict)")
 nmap("<C-w>z", "<C-w>m", { remap = true })
 -- }}
 -- }}
+
+-- Unmap shit
+
+-- vim.keymap.del()

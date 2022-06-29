@@ -1,4 +1,5 @@
-local map = require("utils").map
+local map = require('utils').map
+
 require("gitsigns").setup({
 	signs = {
 		add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
@@ -14,10 +15,10 @@ require("gitsigns").setup({
 	},
 	current_line_blame = true, -- Toggle with `:Gitsigns toggle_current_line_blame`
 	on_attach = function(bufnr)
-		-- Navigation
-		local opts = { buffer = bufnr, expr = true }
-		-- Actions
-		map("n", "<leader>cp", "<cmd>Gitsigns preview_hunk<CR>", { buffer = bufnr })
-		map("n", "<leader>cd", "<cmd>Gitsigns diffthis<CR>", { buffer = bufnr })
+    local gs = package.loaded.gitsigns
+
+    -- Actions
+    map('n', '<leader>cp', gs.preview_hunk)
+    map('n', '<leader>cd', function() gs.diffthis('~') end)
 	end,
 })

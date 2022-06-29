@@ -43,9 +43,6 @@ function M.setup()
 		signs = true,
 	})
 
-	-- TODO disable this if hover is enabled
-	-- vim.cmd([[autocmd CursorHold * lua vim.diagnostic.open_float()]])
-
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 		border = "rounded",
 	})
@@ -58,7 +55,7 @@ end
 -- Highlight on cursor hold
 local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight and client.name ~= "html" then
+	if client.server_capabilities.documentHighlightProvider and client.name ~= "html" then
 		api.nvim_exec(
 			[[
       augroup lsp_document_highlight
@@ -89,7 +86,7 @@ local function formatting_map(client, bufnr)
     vim.keymap.set('n', '<leader>f', function()
       local params = require('vim.lsp.util').make_formatting_params({})
       client.request('textDocument/formatting', params, nil, bufnr)
-    end, {buffer = bufnr})
+    end, { buffer = bufnr })
   end
 end
 
@@ -119,12 +116,28 @@ local function lsp_keymaps(client, bufnr)
 	nmap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
+local function nvim_navic_setup(client, bufnr)
+  local disabled_servers = { -- Some servers lie and say they have capabilities, when they don't.
+    ["bashls"] = true,
+    ["dockerls"] = true,
+    ["html"] = true,
+  }
+
+  if disabled_servers[client.name] == nil and client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
+  end
+end
+
 function M.on_attach(client, bufnr)
   if client.name == "tsserver" then
-    client.server_capabilities.renameProvider = false -- let angular handle this
+    client.server_capabilities.renameProvider = false
+    client.server_capabilities.referencesProvider = false
   end
 	lsp_keymaps(client, bufnr)
 	lsp_highlight_document(client)
+
+  nvim_navic_setup(client, bufnr)
+
 	require("lsp_signature").on_attach(client) -- Maybe remove client
 end
 
@@ -134,11 +147,3 @@ M.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 -- Do so we can bind global functions
 _G.lsp.handlers = M
 return M
-
--- require('lspconfig').sumneko_lua.setup {
---   on_attach = on_attach,
---   cmd = { './lua-language-server/bin/lua-language-server' },
---   flags = {
---     debounce_text_changes = 150,
---   },
--- }
