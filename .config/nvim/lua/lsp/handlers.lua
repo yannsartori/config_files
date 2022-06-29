@@ -90,18 +90,6 @@ local function formatting_map(client, bufnr)
   end
 end
 
-local lsp_formatting = function(bufnr)
-    vim.lsp.buf.format({
-        filter = function(clients)
-            -- filter out clients that you don't want to use
-            return vim.tbl_filter(function(client)
-                return client.name ~= "tsserver"
-            end, clients)
-        end,
-        bufnr = bufnr,
-    })
-end
-
 local function lsp_keymaps(client, bufnr)
 	-- Use Telescope as much as possible
 	local opts = { buffer = bufnr }
@@ -118,7 +106,6 @@ local function lsp_keymaps(client, bufnr)
 	-- Less common
 	nmap("gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 	nmap("gy", "<cmd>Telescope lsp_type_definitions<CR>", opts)
-  -- nmap("<leader>f", lsp_formatting(bufnr), opts)
   formatting_map(client, bufnr)
 	map({ "v", "x" }, "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 
@@ -129,12 +116,28 @@ local function lsp_keymaps(client, bufnr)
 	nmap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
+local function nvim_navic_setup(client, bufnr)
+  local disabled_servers = { -- Some servers lie and say they have capabilities, when they don't.
+    ["bashls"] = true,
+    ["dockerls"] = true,
+    ["html"] = true,
+  }
+
+  if disabled_servers[client.name] == nil and client.server_capabilities.documentSymbolProvider then
+    require("nvim-navic").attach(client, bufnr)
+  end
+end
+
 function M.on_attach(client, bufnr)
   if client.name == "tsserver" then
     client.server_capabilities.renameProvider = false
+    client.server_capabilities.referencesProvider = false
   end
 	lsp_keymaps(client, bufnr)
 	lsp_highlight_document(client)
+
+  nvim_navic_setup(client, bufnr)
+
 	require("lsp_signature").on_attach(client) -- Maybe remove client
 end
 

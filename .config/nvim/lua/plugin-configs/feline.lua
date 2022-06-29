@@ -1,5 +1,5 @@
--- Modified from https://github.com/catppuccin/nvim/blob/24aba3962926330266e8a722c62d7c7fcfb1961e/lua/catppuccin/core/integrations/feline.lua
 local lsp = require("feline.providers.lsp")
+
 local lsp_severity = vim.diagnostic.severity
 local b = vim.b
 
@@ -27,13 +27,13 @@ local assets = {
 	slim_dot = "•",
 }
 
-local clrs = require("catppuccin.core.color_palette")
+local clrs = require("catppuccin.core.palettes.init").get_palette()
 
 -- settings
 local sett = {
-	bkg = clrs.black3,
+	bkg = clrs.surface0,
 	diffs = clrs.mauve,
-	extras = clrs.gray1,
+	extras = clrs.overlay1,
 	curr_file = clrs.maroon,
 	curr_dir = clrs.flamingo,
 }
@@ -51,7 +51,7 @@ local mode_colors = {
 	["Rv"] = { "V-REPLACE", clrs.maroon },
 	["s"] = { "SELECT", clrs.maroon },
 	["S"] = { "S-LINE", clrs.maroon },
-	[""] = { "S-BLOCK", clrs.maroon },
+	[""] = { "S-BLOCK", clrs.maroon },
 	["c"] = { "COMMAND", clrs.peach },
 	["cv"] = { "COMMAND", clrs.peach },
 	["ce"] = { "COMMAND", clrs.peach },
@@ -62,6 +62,15 @@ local mode_colors = {
 }
 
 local shortline = false
+
+local function is_enabled(is_shortline, winid, min_width)
+	if is_shortline then
+		return true
+	end
+
+	winid = winid or 0
+	return vim.api.nvim_win_get_width(winid) > min_width
+end
 
 -- Initialize the components table
 local components = {
@@ -197,7 +206,22 @@ components.active[1][8] = {
 }
 
 components.active[1][9] = {
-	provider = "git_branch", -- Todo maybe truncate?
+	provider = function()
+    local res = b.gitsigns_head or ''
+      -- # Extract out everything before - (or the entire branch, if none)
+      -- git_current_branch=$(echo $git_current_branch | sed -E 's/([^-]*)-?.*/\1/')
+      -- # Add # if numeric
+      -- if [[ $git_current_branch =~ "[0-9]+" ]]; then
+      --   git_current_branch="#$git_current_branch"
+    if #res > 0 then
+      local _, _, branch_tag = string.find(res, "([^-]*)-?.*")
+      if string.find(branch_tag, "^%d+$") then
+        branch_tag = "#" .. branch_tag
+      end
+      return branch_tag
+    end
+    return res
+  end,
 	hl = {
 		fg = sett.bkg,
 		bg = sett.diffs,
@@ -215,56 +239,32 @@ components.active[1][10] = {
 		return any_git_changes()
 	end,
 }
+
 -- Diffs ------>
 
 -- Extras ------>
 
--- file progess
-components.active[1][11] = {
-	provider = function()
-		local current_line = vim.fn.line(".")
-		local total_line = vim.fn.line("$")
-
-		if current_line == 1 then
-			return " Top "
-		elseif current_line == vim.fn.line("$") then
-			return " Bot "
-		end
-		local result, _ = math.modf((current_line / total_line) * 100)
-		return " " .. result .. "%% "
-	end,
-	-- enabled = shortline or function(winid)
-	-- 	return vim.api.nvim_win_get_width(winid) > 90
-	-- end,
-	hl = {
-		fg = sett.extras,
-		bg = sett.bkg,
-	},
-	left_sep = invi_sep,
-}
-
 -- position
-components.active[1][12] = {
-	provider = "position",
-	-- enabled = shortline or function(winid)
-	-- 	return vim.api.nvim_win_get_width(winid) > 90
-	-- end,
+components.active[1][11] = {
+	provider = {
+    name = "position",
+    opts = {
+      format = "Col {col}",
+      padding = {
+        col = 3,
+      }
+    }
+  },
 	hl = {
 		fg = sett.extras,
 		bg = sett.bkg,
 	},
 	left_sep = invi_sep,
 }
--- Extras ------>
-
--- ######## Left
-
--- ######## Center
-
 -- Diagnostics ------>
 -- workspace loader
 -- genral diagnostics (errors, warnings. info and hints)
-components.active[2][1] = {
+components.active[1][12] = {
 	provider = "diagnostic_errors",
 	enabled = function()
 		return lsp.diagnostics_exist(lsp_severity.ERROR)
@@ -277,7 +277,7 @@ components.active[2][1] = {
 	icon = "  ",
 }
 
-components.active[2][2] = {
+components.active[1][13] = {
 	provider = "diagnostic_warnings",
 	enabled = function()
 		return lsp.diagnostics_exist(lsp_severity.WARN)
@@ -289,7 +289,7 @@ components.active[2][2] = {
 	icon = "  ",
 }
 
-components.active[2][3] = {
+components.active[1][14] = {
 	provider = "diagnostic_info",
 	enabled = function()
 		return lsp.diagnostics_exist(lsp_severity.INFO)
@@ -301,7 +301,7 @@ components.active[2][3] = {
 	icon = "  ",
 }
 
-components.active[2][4] = {
+components.active[1][15] = {
 	provider = "diagnostic_hints",
 	enabled = function()
 		return lsp.diagnostics_exist(lsp_severity.HINT)
@@ -311,6 +311,28 @@ components.active[2][4] = {
 		bg = sett.bkg,
 	},
 	icon = "  ",
+}
+
+-- ######## Left
+
+-- ######## Center
+
+
+local seperator = "  "
+
+components.active[2][1] = {
+	provider = function()
+    return require("nvim-navic").get_location({
+        separator = seperator,
+      })
+  end,
+  enabled = function()
+    return require("nvim-navic").is_available()
+  end,
+  hl = {
+		fg = clrs.rosewater,
+    bg = sett.bkg,
+  },
 }
 -- Diagnostics ------>
 
@@ -385,6 +407,65 @@ components.active[3][3] = {
 	},
 }
 -- ######## Right
+
+
+-- Statusbar
+local winbarComponents = {
+	active = {},
+}
+table.insert(winbarComponents.active, {}) -- (1) left
+
+
+winbarComponents.active[1][1] = {
+	provider = function()
+    local filename = vim.api.nvim_buf_get_name(0)
+    filename = vim.fn.fnamemodify(filename, ':~:.')
+
+    local crumbs = vim.split(filename, "/", { trimempty = true })
+
+    local lastElem = table.remove(crumbs)
+    local val = ""
+    if #crumbs > 4 then
+      while #crumbs > 4 do
+        table.remove(crumbs, 3)
+      end
+      table.insert(crumbs, 3, "...")
+    end
+
+    val = val .. table.concat(crumbs, seperator)
+
+    if lastElem then
+      if #val > 0 then
+        val = val .. seperator .. lastElem
+      else
+        val = lastElem
+      end
+    end
+    -- Add some margin
+    return "     " .. val
+  end,
+  hl = {
+    bg = clrs.mantle,
+  },
+}
+
+winbarComponents.active[1][2] = {
+	provider = function()
+    return "  " .. require("nvim-navic").get_location({
+      separator = seperator,
+    })
+  end,
+  enabled = function()
+    return require("nvim-navic").is_available()
+  end,
+  hl = {
+    bg = clrs.mantle,
+  },
+}
+
+-- require("feline").winbar.setup({
+--   components = winbarComponents,
+-- })
 
 require("feline").setup({
 	components = components,

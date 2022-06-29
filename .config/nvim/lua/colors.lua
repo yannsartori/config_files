@@ -3,17 +3,18 @@ local fg = require("utils").fg
 local fg_bg = require("utils").fg_bg
 local colors = require("catppuccin.api.colors").get_colors()
 
-local darker_black = colors.black1
-local black3 = colors.black3
+local darker_black = colors.mantle
+local black3 = colors.surface0
 local black3p5 = "#313040"
-local white = colors.white
+local white = colors.text
 local red = colors.maroon
 local yellow = colors.yellow
 local purple = colors.lavender
 local sky = colors.sky
 local blue = colors.blue
 local green = colors.green
-local black = colors.black0
+local black = colors.crust
+local base = colors.base
 
 -- Line number
 fg("cursorlinenr", white)
@@ -39,10 +40,11 @@ fg("CmpItemKind", white)
 fg("CmpItemMenu", white)
 
 -- For lsp diagnostics
-fg("DiagnosticHint", purple)
-fg("DiagnosticError", red)
-fg("DiagnosticWarn", yellow)
-fg("DiagnosticInformation", green)
+fg_bg("DiagnosticHint", purple, base)
+fg_bg("DiagnosticError", red, base)
+fg_bg("DiagnosticWarn", yellow, base)
+fg_bg("DiagnosticInformation", green, base)
+fg_bg("DiagnosticInfo", blue, base)
 
 -- For telescope
 fg_bg("TelescopeBorder", darker_black, darker_black)
@@ -56,3 +58,9 @@ bg("TelescopeNormal", darker_black)
 fg_bg("TelescopePreviewTitle", black, green)
 fg_bg("TelescopePromptTitle", black, red)
 fg_bg("TelescopeResultsTitle", darker_black, darker_black)
+
+-- For treesitter context
+bg("TreesitterContext", black3)
+fg("TreesitterContextLineNumber", red)
+
+-- For winbar

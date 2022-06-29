@@ -6,4 +6,5 @@ bindkey "ﬂ" beginning-of-line # Alt + ^
 bindkey "›" end-of-line # Alt + $
 bindkey "Î" kill-line # Alt + D
 bindkey "∂" kill-whole-line # Alt + d
+bindkey '^[^?' backward-kill-word # Alt + delete
 
