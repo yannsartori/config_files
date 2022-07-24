@@ -1,5 +1,5 @@
 neofetch --disable memory
-base="$HOME/.config/zsh/butter"
+base="$HOME/.config/zsh/home"
 
 # Order here is important
 source "$base/functions.zsh"
