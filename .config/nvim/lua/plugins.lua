@@ -27,7 +27,7 @@ Plug(
 	"nvim-telescope/telescope-fzf-native.nvim",
 	{ ["do"] = "make", ["commit"] = "6a33ecefa9b3d9ade654f9a7a6396a00c3758ca6" }
 ) -- Last Updated: 06/22/2022
-Plug("nvim-telescope/telescope.nvim", { ["commit"] = "d88b44ddf14670cffa9fdb1eaca7a0429a973653" }) -- Last Updated: 06/22/2022
+Plug("nvim-telescope/telescope.nvim", { ["tag"] = "0.1.0" }) -- Last Updated: 07/25/2022
 Plug(
 	"nvim-treesitter/nvim-treesitter",
 	{ ["do"] = vim.fn["TSUpdate"], ["commit"] = "238532fe82b3dbfedcc06f11a536e19b1df696e1" }
@@ -52,7 +52,8 @@ Plug("neovim/nvim-lspconfig", { ["commit"] = "9278dfbb92f8e99c313ce58ddcff92bd0b
 Plug("rafamadriz/friendly-snippets", { ["commit"] = "d27a83a363e61009278b6598703a763ce9c8e617" }) -- Last Updated: 06/22/2022
 Plug("ray-x/lsp_signature.nvim", { ["commit"] = "49837977e210959c552bf357dc40ce18fadca501" }) -- Last Updated: 06/22/2022
 Plug("saadparwaiz1/cmp_luasnip", { ["commit"] = "a9de941bcbda508d0a45d28ae366bb3f08db2e36" }) -- Last Updated: 06/22/2022
-Plug("williamboman/nvim-lsp-installer", { ["commit"] = "5a0bf929eefad999e92963ee227c23a804cf0788" }) -- Last Updated: 06/22/2022
+Plug("williamboman/mason.nvim", { ["commit"] = "863888747941485feeccccd813f130333845d3a6" }) -- Last Updated: 07/25/2022
+Plug("williamboman/mason-lspconfig.nvim", { ["commit"] = "9dc0291fd9e3bdb56245f6bef95223cac9865231" }) -- Last Updated: 07/25/2022
 -- }}
 
 -- HTML Plugins {{

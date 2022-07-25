@@ -17,8 +17,16 @@ require("telescope").setup({
 			height = 0.80,
 			preview_cutoff = 120,
 		},
+		mappings = {
+			i = {
+				["<C-p>"] = require("telescope.actions.layout").toggle_preview,
+			},
+		},
 		path_display = {
 			"truncate",
+		},
+		preview = {
+			hide_on_startup = true,
 		},
 		winblend = 0,
 		border = {},
