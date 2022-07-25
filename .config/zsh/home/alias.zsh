@@ -22,5 +22,6 @@ alias cat='bat -P'
 
 # Random crap
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
 alias -s {zsh, yml,yaml}=nvim
