@@ -18,7 +18,7 @@ export XDG_STATE_HOME=$HOME/.local/state
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
-# Force everything to use XDG_CONFIG_HOME
+# Force everything to use XDG
 # Ruby bundle
 export BUNDLE_USER_CONFIG="$XDG_CONFIG_HOME"/bundle
 export BUNDLE_USER_CACHE="$XDG_CACHE_HOME"/bundle
