@@ -119,6 +119,7 @@ end
 local function nvim_navic_setup(client, bufnr)
   local disabled_servers = { -- Some servers lie and say they have capabilities, when they don't.
     ["bashls"] = true,
+    ["cssls"] = true,
     ["dockerls"] = true,
     ["html"] = true,
   }

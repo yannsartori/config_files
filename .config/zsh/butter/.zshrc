@@ -16,3 +16,7 @@ for plugin in $base/../plugins/*.*; do
 done
 
 source "$base/../themes/spaceship.zsh"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
