@@ -207,21 +207,21 @@ components.active[1][8] = {
 
 components.active[1][9] = {
 	provider = function()
-    local res = b.gitsigns_head or ''
-      -- # Extract out everything before - (or the entire branch, if none)
-      -- git_current_branch=$(echo $git_current_branch | sed -E 's/([^-]*)-?.*/\1/')
-      -- # Add # if numeric
-      -- if [[ $git_current_branch =~ "[0-9]+" ]]; then
-      --   git_current_branch="#$git_current_branch"
-    if #res > 0 then
-      local _, _, branch_tag = string.find(res, "([^-]*)-?.*")
-      if string.find(branch_tag, "^%d+$") then
-        branch_tag = "#" .. branch_tag
-      end
-      return branch_tag
-    end
-    return res
-  end,
+		local res = b.gitsigns_head or ""
+		-- # Extract out everything before - (or the entire branch, if none)
+		-- git_current_branch=$(echo $git_current_branch | sed -E 's/([^-]*)-?.*/\1/')
+		-- # Add # if numeric
+		-- if [[ $git_current_branch =~ "[0-9]+" ]]; then
+		--   git_current_branch="#$git_current_branch"
+		if #res > 0 then
+			local _, _, branch_tag = string.find(res, "([^-]*)-?.*")
+			if string.find(branch_tag, "^%d+$") then
+				branch_tag = "#" .. branch_tag
+			end
+			return branch_tag
+		end
+		return res
+	end,
 	hl = {
 		fg = sett.bkg,
 		bg = sett.diffs,
@@ -247,14 +247,14 @@ components.active[1][10] = {
 -- position
 components.active[1][11] = {
 	provider = {
-    name = "position",
-    opts = {
-      format = "Col {col}",
-      padding = {
-        col = 3,
-      }
-    }
-  },
+		name = "position",
+		opts = {
+			format = "Col {col}",
+			padding = {
+				col = 3,
+			},
+		},
+	},
 	hl = {
 		fg = sett.extras,
 		bg = sett.bkg,
@@ -317,22 +317,21 @@ components.active[1][15] = {
 
 -- ######## Center
 
-
 local seperator = "  "
 
 components.active[2][1] = {
 	provider = function()
-    return require("nvim-navic").get_location({
-        separator = seperator,
-      })
-  end,
-  enabled = function()
-    return require("nvim-navic").is_available()
-  end,
-  hl = {
+		return require("nvim-navic").get_location({
+			separator = seperator,
+		})
+	end,
+	enabled = function()
+		return require("nvim-navic").is_available()
+	end,
+	hl = {
 		fg = clrs.rosewater,
-    bg = sett.bkg,
-  },
+		bg = sett.bkg,
+	},
 }
 -- Diagnostics ------>
 
@@ -407,65 +406,6 @@ components.active[3][3] = {
 	},
 }
 -- ######## Right
-
-
--- Statusbar
-local winbarComponents = {
-	active = {},
-}
-table.insert(winbarComponents.active, {}) -- (1) left
-
-
-winbarComponents.active[1][1] = {
-	provider = function()
-    local filename = vim.api.nvim_buf_get_name(0)
-    filename = vim.fn.fnamemodify(filename, ':~:.')
-
-    local crumbs = vim.split(filename, "/", { trimempty = true })
-
-    local lastElem = table.remove(crumbs)
-    local val = ""
-    if #crumbs > 4 then
-      while #crumbs > 4 do
-        table.remove(crumbs, 3)
-      end
-      table.insert(crumbs, 3, "...")
-    end
-
-    val = val .. table.concat(crumbs, seperator)
-
-    if lastElem then
-      if #val > 0 then
-        val = val .. seperator .. lastElem
-      else
-        val = lastElem
-      end
-    end
-    -- Add some margin
-    return "     " .. val
-  end,
-  hl = {
-    bg = clrs.mantle,
-  },
-}
-
-winbarComponents.active[1][2] = {
-	provider = function()
-    return "  " .. require("nvim-navic").get_location({
-      separator = seperator,
-    })
-  end,
-  enabled = function()
-    return require("nvim-navic").is_available()
-  end,
-  hl = {
-    bg = clrs.mantle,
-  },
-}
-
--- require("feline").winbar.setup({
---   components = winbarComponents,
--- })
 
 require("feline").setup({
 	components = components,

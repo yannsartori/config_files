@@ -1,33 +1,37 @@
--- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
+local lspconfig = require("lspconfig")
+local all_servers = {
+	"angularls", --(npm install -g @angular/language-service@next typescript @angular/language-server)
+	"bashls",
+	"cssls",
+	"dockerls",
+	"html",
+	"jsonls",
+	"pyright",
+	"sumneko_lua",
+	"taplo",
+	"tsserver",
+	"yamlls",
+	"zk", -- (brew install zk)
+}
+local extra_configs = { "angularls", "jsonls", "pyright", "sumneko_lua" }
 
--- Installed servers:
--- angularls (npm install -g @angular/language-service@next typescript @angular/language-server)
--- bashls
--- cssls
--- dockerls
--- html
--- jsonls
--- pyright
--- sumneko_lua
--- tsserver
--- vimls
--- yamlls
--- zk (brew install zk)
-require("nvim-lsp-installer").on_server_ready(function(server)
+require("mason").setup({})
+require("mason-lspconfig").setup({
+	ensure_installed = all_servers,
+})
+
+for _, server in ipairs(all_servers) do
 	local opts = {
 		on_attach = require("lsp.handlers").on_attach,
 		capabilities = require("lsp.handlers").capabilities,
 		flags = { debounce_text_changes = 150 },
 	}
-
-	local extra_configs = { "angularls", "jsonls", "pyright", "sumneko_lua" }
 	for _, val in ipairs(extra_configs) do
-		if server.name == val then
+		if server == val then
 			local extra_opts = require("lsp.settings." .. val)
 			opts = vim.tbl_deep_extend("force", extra_opts, opts)
 		end
 	end
 
-	server:setup(opts)
-end)
+	lspconfig[server].setup(opts)
+end

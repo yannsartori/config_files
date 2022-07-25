@@ -23,7 +23,7 @@ fg("cursorlinenr", white)
 fg("WinSeparator", white)
 
 -- Hide
-fg("EndOfBuffer", black)
+fg("EndOfBuffer", colors.base)
 
 -- For floating windows
 fg("FloatBorder", blue)
@@ -62,5 +62,3 @@ fg_bg("TelescopeResultsTitle", darker_black, darker_black)
 -- For treesitter context
 bg("TreesitterContext", black3)
 fg("TreesitterContextLineNumber", red)
-
--- For winbar

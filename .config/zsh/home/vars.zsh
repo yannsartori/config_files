@@ -2,56 +2,11 @@ export CLICOLOR=1
 export CPPFLAGS="-I/usr/local/opt/readline/include"
 export DISABLE_AUTO_TITLE=true
 export EDITOR=nvim
-export HISTFILE="$XDG_STATE_HOME"/zsh/history
 export HISTSIZE=999999999
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export LDFLAGS="-L/usr/local/opt/readline/lib"
 export LSCOLORS=GxFxCxDxBxegedabagaced
 export SAVEHIST=$HISTSIZE
 export VISUAL=nvim
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_DATA_HOME=$HOME/.local/share/
-export XDG_RUNTIME_DIR=$HOME/.run
-export XDG_STATE_HOME=$HOME/.local/state
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-# Force everything to use XDG
-# Cabal
-export CABAL_CONFIG="$XDG_CONFIG_HOME"/cabal/config
-export CABAL_DIR="$XDG_DATA_HOME"/cabal
-# Docker
-export DOCKER_CONFIG="$XDG_CONFIG_HOME"/docker
-# Gem
-export GEM_HOME="$XDG_DATA_HOME"/gem
-export GEM_SPEC_CACHE="$XDG_CACHE_HOME"/gem
-# Ghcup
-export GHCUP_USE_XDG_DIRS=true
-# Go
-export GOPATH="$XDG_DATA_HOME"/go
-# Jupyter
-export JUPYTER_CONFIG_DIR="$XDG_CONFIG_HOME"/jupyter
-# Leiningen
-export LEIN_HOME="$XDG_DATA_HOME"/lein
-# Less
-export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
-# Mysql
-export MYSQL_HISTFILE="$XDG_DATA_HOME"/mysql_history
-# Ncurses
-export TERMINFO="$XDG_DATA_HOME"/terminfo
-export TERMINFO_DIRS="$XDG_DATA_HOME"/terminfo:/usr/share/terminfo
-# Nodejs
-export NODE_REPL_HISTORY="$XDG_DATA_HOME"/node_repl_history
-# Nvm
-export NVM_DIR="$XDG_DATA_HOME"/nvm
-# Opam
-export OPAMROOT="$XDG_DATA_HOME"/opam
-# Pyenv
-export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
-# Pylint
-export PYLINTHOME="$XDG_CACHE_HOME"/pylint
-# Poetry
-export POETRY_HOME="$XDG_DATA_HOME"/poetry
-# Rustup
-export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
