@@ -4,6 +4,7 @@ base="$HOME/.config/zsh/home"
 # Order here is important
 source "$base/functions.zsh"
 source "$base/opts.zsh"
+source "$base/xdg.zsh"
 source "$base/vars.zsh"
 source "$base/path.zsh"
 source "$base/source.zsh"

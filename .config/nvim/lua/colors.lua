@@ -62,5 +62,3 @@ fg_bg("TelescopeResultsTitle", darker_black, darker_black)
 -- For treesitter context
 bg("TreesitterContext", black3)
 fg("TreesitterContextLineNumber", red)
-
--- For winbar
