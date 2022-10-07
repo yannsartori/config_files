@@ -36,6 +36,15 @@ function M.imap(shortcut, command, opts)
 	M.map("i", shortcut, command, opts)
 end
 
+--- Does a visual, recursive, silent mapping
+--
+-- @param shortcut - The shortcut to map
+-- @param command - The command to map the short cut to
+-- @param opts - Any additionally options to use (expr, noremap, silent, buffer)
+function M.vmap(shortcut, command, opts)
+	M.map("v", shortcut, command, opts)
+end
+
 --- Set the highlight foreground
 --
 -- @param group The highlight group

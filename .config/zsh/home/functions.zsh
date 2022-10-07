@@ -26,3 +26,8 @@ function open_command() {
 
   ${=open_cmd} "$@" &>/dev/null
 }
+
+function gdiff() {
+  preview="git diff $@ --color=always -- {-1}"
+  git diff $@ --name-only | fzf -m --ansi --preview $preview --bind ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down
+}

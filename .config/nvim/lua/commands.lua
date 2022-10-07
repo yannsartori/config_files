@@ -50,18 +50,22 @@ end, {})
 -- Custom insert entering/leaving logic {{
 local function insertToggle(toggle)
 	return function()
+    local ok, mod = pcall(require, "true-zen.minimalist")
+    if ok and mod.running then
+      return
+    end
 		opt.relativenumber = not toggle
 		opt.spell = toggle
 	end
 end
-api.nvim_create_autocmd({ "InsertEnter" }, {
-	pattern = "*",
-	callback = insertToggle(true),
-})
-api.nvim_create_autocmd({ "InsertLeave" }, {
-	pattern = "*",
-	callback = insertToggle(false),
-})
+-- api.nvim_create_autocmd({ "InsertEnter" }, {
+-- 	pattern = "*",
+-- 	callback = insertToggle(true),
+-- })
+-- api.nvim_create_autocmd({ "InsertLeave" }, {
+-- 	pattern = "*",
+-- 	callback = insertToggle(false),
+-- })
 api.nvim_create_autocmd({ "BufReadPost" }, {
 	pattern = "*",
 	callback = function()
