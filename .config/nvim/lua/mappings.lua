@@ -1,6 +1,7 @@
 local map = require("utils").map
 local nmap = require("utils").nmap
 local imap = require("utils").imap
+local vmap = require("utils").vmap
 
 -- Delete entire words
 imap("<M-BS>", "<C-W>", { remap = false })
@@ -44,7 +45,21 @@ nmap("<leader>ct", "<Plug>(git-conflict-theirs)")
 nmap("<leader>gc", "<Plug>(git-conflict-next-conflict)")
 nmap("<leader>gC", "<Plug>(git-conflict-prev-conflict)")
 -- }}
--- vim-zoom {{
-nmap("<C-w>z", "<C-w>m", { remap = true })
+
+-- true-zen {{
+local truezen = require('true-zen')
+nmap('<leader>zn', function()
+  local first = 0
+  local last = vim.api.nvim_buf_line_count(0)
+  truezen.narrow(first, last)
+end, { noremap = true })
+vmap('<leader>zn', function()
+  local first = vim.fn.line('v')
+  local last = vim.fn.line('.')
+  truezen.narrow(first, last)
+end, { noremap = true })
+nmap('<leader>zf', truezen.focus, { noremap = true })
+nmap('<leader>zm', truezen.minimalist, { noremap = true })
+nmap('<leader>za', truezen.ataraxis, { noremap = true })
 -- }}
 -- }}

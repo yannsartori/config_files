@@ -19,7 +19,8 @@ require("nvim-treesitter.configs").setup({
 	},
 	highlight = {
 		enable = true,
-		additional_vim_regex_highlighting = true,
+    disable = { "json", "yaml" },
+		-- additional_vim_regex_highlighting = true,
 	},
 	incremental_selection = {
 		enable = true,

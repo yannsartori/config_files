@@ -1,7 +1,7 @@
 local bg = require("utils").bg
 local fg = require("utils").fg
 local fg_bg = require("utils").fg_bg
-local colors = require("catppuccin.api.colors").get_colors()
+local colors = require("catppuccin.palettes").get_palette()
 
 local darker_black = colors.mantle
 local black3 = colors.surface0

@@ -1,3 +1,4 @@
+export BAT_THEME="Catppuccin-mocha"
 export CLICOLOR=1
 export CPPFLAGS="-I/usr/local/opt/readline/include"
 export DISABLE_AUTO_TITLE=true

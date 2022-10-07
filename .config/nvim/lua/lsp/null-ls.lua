@@ -1,9 +1,9 @@
 local null_ls = require("null-ls")
 local formatting = null_ls.builtins.formatting
 local diagnostics = null_ls.builtins.diagnostics
-
+--
 null_ls.setup({
-	debug = true,
+	debug = false,
 	on_attach = require("lsp.handlers").on_attach,
 	sources = {
 		formatting.prettier, -- Install in project dev dep (or npm i -g prettier)
@@ -11,5 +11,6 @@ null_ls.setup({
 		formatting.markdownlint, -- npm i -g markdownlint markdownlint-cli
 		diagnostics.flake8, -- Install in project dev dep.
 		diagnostics.markdownlint,
+    -- diagnostics.eslint_d,
 	},
 })
