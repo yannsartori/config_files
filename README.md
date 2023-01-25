@@ -23,7 +23,6 @@ complete, resource the `.zshrc` file.
 ### Neovim
 
   1. Run `python3 -m pip install --user --upgrade pynvim` (Note: This might
-    need to be run for every pyenv entered, in which case, replace `python3`
-    with `python`)
-  1. Open `~/.config/nvim/init.lua` (errors will occur) and run `:PlugInstall`
+    need to be run for every venv entered)
+  1. Open Neovim with `nvim`. Wait for the packages to install.
   1. Reopen Neovim. Everything should work!!

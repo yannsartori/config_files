@@ -1,4 +1,4 @@
-local lib = "/usr/local/lib/node_modules"
+local lib = "/Users/sartori2/.local/share/nvm/versions/node/v16.18.1/lib/node_modules"
 local cmd = {
 	"node",
 	lib .. "/@angular/language-server",

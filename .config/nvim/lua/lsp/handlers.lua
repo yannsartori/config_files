@@ -91,59 +91,43 @@ local function formatting_map(client, bufnr)
 end
 
 local function lsp_keymaps(client, bufnr)
-	-- Use Telescope as much as possible
+	-- Prioritize LSPSaga > Telescope > builtin lsp
 	local opts = { buffer = bufnr }
 
 	-- Common mappings
 	nmap("gd", "<cmd>Telescope lsp_definitions<CR>", opts)
-	nmap("K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-	nmap("gr", "<cmd>Telescope lsp_references<CR>", opts)
-	nmap("<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-	nmap("gE", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-	nmap("ge", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-	nmap("gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+	nmap("gD", "<cmd>Lspsaga peek_definition<CR>", opts)
+	nmap("K", "<cmd>Lspsaga hover_doc<CR>", opts)
+	nmap("gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
+	nmap("<leader>rn", "<cmd>Lspsaga rename<CR>", opts)
+	nmap("gE", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+	nmap("ge", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+	nmap("gl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 
 	-- Less common
 	nmap("gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 	nmap("gy", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 	formatting_map(client, bufnr)
 	map({ "v", "x" }, "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
-
-	-- Only here just because
-	nmap("<leader>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-	nmap("<leader>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-	nmap("<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
 	nmap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
 
-local function nvim_navic_setup(client, bufnr)
-	local disabled_servers = { -- Some servers lie and say they have capabilities, when they don't.
-		["bashls"] = true,
-		["cssls"] = true,
-		["dockerls"] = true,
-		["html"] = true,
-	}
-
-	if disabled_servers[client.name] == nil and client.server_capabilities.documentSymbolProvider then
-		require("nvim-navic").attach(client, bufnr)
-	end
-end
-
 function M.on_attach(client, bufnr)
-	if client.name == "tsserver" then
+	local inferior_servers = { -- servers who are doubled up with another, and we don't want their capabilities
+		["tsserver"] = true,
+	}
+	if inferior_servers[client.name] ~= nil then
 		client.server_capabilities.renameProvider = false
+		client.server_capabilities.definitionProvider = false
 		client.server_capabilities.referencesProvider = false
 	end
+
 	lsp_keymaps(client, bufnr)
 	lsp_highlight_document(client)
-
-	nvim_navic_setup(client, bufnr)
-
-	require("lsp_signature").on_attach(client) -- Maybe remove client
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
 -- Do so we can bind global functions
 _G.lsp.handlers = M

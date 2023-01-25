@@ -1,13 +1,12 @@
 local map = require("utils").map
 local nmap = require("utils").nmap
 local imap = require("utils").imap
-local vmap = require("utils").vmap
 
 -- Delete entire words
 imap("<M-BS>", "<C-W>", { remap = false })
 
 -- Better spell fixer
-nmap("<leader>s", "<CMD>Telescope spell_suggest<CR>")
+nmap("<leader>sf", "<CMD>Telescope spell_suggest<CR>")
 nmap("gs", "]s")
 nmap("gS", "[s")
 
@@ -46,20 +45,12 @@ nmap("<leader>gc", "<Plug>(git-conflict-next-conflict)")
 nmap("<leader>gC", "<Plug>(git-conflict-prev-conflict)")
 -- }}
 
--- true-zen {{
-local truezen = require('true-zen')
-nmap('<leader>zn', function()
-  local first = 0
-  local last = vim.api.nvim_buf_line_count(0)
-  truezen.narrow(first, last)
-end, { noremap = true })
-vmap('<leader>zn', function()
-  local first = vim.fn.line('v')
-  local last = vim.fn.line('.')
-  truezen.narrow(first, last)
-end, { noremap = true })
-nmap('<leader>zf', truezen.focus, { noremap = true })
-nmap('<leader>zm', truezen.minimalist, { noremap = true })
-nmap('<leader>za', truezen.ataraxis, { noremap = true })
+-- Treesj {{
+nmap("<leader>ss", "<CMD>TSJToggle<CR>")
 -- }}
+
+-- vim-maximizer {{
+nmap("<C-W>z", "<CMD>MaximizerToggle<CR>")
+-- }}
+
 -- }}

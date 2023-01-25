@@ -1,13 +1,14 @@
 local opt = vim.opt
 local g = vim.g
 
+opt.autoindent = true
 opt.backup = false
 opt.cmdheight = 2
 opt.errorbells = false
 opt.expandtab = true
 opt.foldlevelstart = 99
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.wo.foldmethod = "expr"
+vim.wo.foldexpr = "nvim_treesitter#foldexpr()"
 opt.hidden = true
 opt.lazyredraw = true
 opt.linebreak = true
@@ -33,5 +34,3 @@ opt.laststatus = 3
 opt.cmdheight = 1
 
 g.mapleader = " "
--- I forgot why this was added, but seems intriguing
-g.vimsyn_embed = "lPr"
