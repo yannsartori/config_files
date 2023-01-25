@@ -8,6 +8,7 @@ local all_servers = {
 	"html",
 	"jsonls",
 	"pyright",
+  "rust_analyzer",
 	"sumneko_lua",
 	"taplo",
 	"tsserver",
