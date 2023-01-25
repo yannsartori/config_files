@@ -27,7 +27,7 @@ brew install \
 
 # Casks
 brew tap homebrew/cask-fonts
-brew install --cask font-fira-mono-nerd-font alacritty
+brew install --cask font-fira-mono-nerd-font font-liberation-nerd-font alacritty
 
 # Npm installations
 npm install --global yarn @angular/language-service@next typescript @angular/language-server markdownlint markdownlint-cli
