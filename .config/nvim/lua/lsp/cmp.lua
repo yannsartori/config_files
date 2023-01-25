@@ -35,6 +35,10 @@ local has_words_before = function()
 	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
+if cmp == nil then
+	return
+end
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -63,7 +67,7 @@ cmp.setup({
 			elseif has_words_before() then
 				cmp.complete()
 			else
-				fallback() -- The fallback function sends a already mapped key. In this case, it's probably `<Tab>`.
+				fallback()
 			end
 		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function(fallback)
@@ -81,10 +85,10 @@ cmp.setup({
 		format = function(entry, vim_item)
 			-- Kind icons
 			vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
 				nvim_lsp = "[LSP]",
 				nvim_lua = "[NVIM_LUA]",
+				luasnip = "[SNIPPET]",
 				buffer = "[Buffer]",
 				path = "[Path]",
 			})[entry.source.name]
@@ -94,17 +98,21 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
+		{ name = "luasnip" },
 		{ name = "buffer" },
 		{ name = "path" },
+		{ name = "nvim_lsp_signature_help" },
+		{ name = "nvim_lua", keyword_length = 2 },
+		{ name = "vsnip", keyword_length = 2 },
+		{ name = "calc" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
 	},
 	window = {
-		documentation = {
-			border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-		},
+		completion = cmp.config.window.bordered(),
+		documentation = cmp.config.window.bordered(),
 	},
 	experimental = {
 		ghost_text = false,

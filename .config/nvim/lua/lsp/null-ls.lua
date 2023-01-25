@@ -11,6 +11,6 @@ null_ls.setup({
 		formatting.markdownlint, -- npm i -g markdownlint markdownlint-cli
 		diagnostics.flake8, -- Install in project dev dep.
 		diagnostics.markdownlint,
-    -- diagnostics.eslint_d,
+		-- diagnostics.eslint_d,
 	},
 })
