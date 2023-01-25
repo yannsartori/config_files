@@ -1,2 +1,1 @@
-eval "$(pyenv init --path)"
-eval $(thefuck --alias frick)
+../home/evals.zsh

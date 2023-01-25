@@ -12,7 +12,6 @@ alias tn="t new -s"
 alias td="./.tmux.startup.sh"
 
 # Nvim
-alias vi='nvim'
 alias vim='nvim'
 
 # System binaries
