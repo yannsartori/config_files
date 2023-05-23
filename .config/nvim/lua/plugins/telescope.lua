@@ -1,6 +1,5 @@
 return {
 	"nvim-telescope/telescope.nvim",
-	pin = true,
 	cmd = "Telescope",
 	config = function()
 		require("telescope").load_extension("fzf")
@@ -25,6 +24,7 @@ return {
 				mappings = {
 					i = {
 						["<C-p>"] = require("telescope.actions.layout").toggle_preview,
+						["<C-d>"] = require("telescope.actions").delete_buffer,
 					},
 				},
 				path_display = {
@@ -50,8 +50,21 @@ return {
 				set_env = {
 					COLORTERM = "truecolor",
 				},
-				file_ignore_patterns = { "lua-language-server", "e2e" },
+				file_ignore_patterns = {
+          ".ipynb",
+          ".ju.",
+          "e2e",
+          "lua-language-server",
+          "node_modules",
+          "swagger",
+        },
 			},
+      extensions = {
+        file_browser = {
+          theme = "ivy",
+          hijack_netrw = true,
+        }
+      }
 		})
 	end,
 }

@@ -11,20 +11,24 @@ nmap("gs", "]s")
 nmap("gS", "[s")
 
 -- Buffer mappings
-nmap("<leader>h", "<CMD>BufferLineCyclePrev<CR>")
-nmap("<leader>H", "<CMD>BufferLineMovePrev<CR>")
-nmap("<leader>l", "<CMD>BufferLineCycleNext<CR>")
-nmap("<leader>L", "<CMD>BufferLineMoveNext<CR>")
-nmap("gb", "<CMD>BufferLinePick<CR>")
--- Removes it
 nmap("<leader>b", "<CMD>bp <BAR> bd #<CR>")
+
+-- Pair programming
+local relative_number_toggler = function()
+  if vim.api.nvim_win_get_option(0, "relativenumber") then
+    vim.api.nvim_win_set_option(0, "relativenumber", false)
+  else
+    vim.api.nvim_win_set_option(0, "relativenumber", true)
+  end
+end
+nmap("<leader>\\", relative_number_toggler)
 
 -- plugins {{
 -- Note that some plugins (in particular, those with on_attach capabilities) have their mappings defined in their configuration files.
 -- nvim-tree {{
 nmap("<leader>nt", "<CMD>NvimTreeToggle<CR>")
 nmap("<leader>nr", "<CMD>NvimTreeRefresh<CR>")
-nmap("<leader>nf", "<CMD>NvimTreeFindFile<CR>")
+nmap("<leader>nf", "<CMD>NvimTreeFindFileToggle<CR>")
 -- }}
 
 -- comment {{
@@ -34,15 +38,16 @@ map({ "n", "v" }, "<C-_>", "<leader>!", { remap = true })
 -- Telescope {{
 nmap("<C-P>", "<CMD>Telescope find_files<CR>")
 nmap("<C-F>", "<CMD>Telescope live_grep<CR>")
+nmap("gb", "<CMD>Telescope buffers<CR>")
 -- }}
 
 -- git-conflict {{
-nmap("<leader>co", "<Plug>(git-conflict-ours)")
-nmap("<leader>cb", "<Plug>(git-conflict-both)")
-nmap("<leader>c0", "<Plug>(git-conflict-none)")
-nmap("<leader>ct", "<Plug>(git-conflict-theirs)")
-nmap("<leader>gc", "<Plug>(git-conflict-next-conflict)")
-nmap("<leader>gC", "<Plug>(git-conflict-prev-conflict)")
+nmap("<leader>co", "<CMD>GitConflictChooseOurs<CR>")
+nmap("<leader>cb", "<CMD>GitConflictChooseBoth<CR>")
+nmap("<leader>c0", "<CMD>GitConflictChooseNone<CR>")
+nmap("<leader>ct", "<CMD>GitConflictChooseTheirs<CR>")
+nmap("<leader>gc", "<CMD>GitConflictNextConflict<CR>")
+nmap("<leader>gC", "<CMD>GitConflictPrevConflict<CR>")
 -- }}
 
 -- Treesj {{

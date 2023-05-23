@@ -1,10 +1,11 @@
 return {
 	"kyazdani42/nvim-tree.lua",
-	pin = true,
 	cmd = {
 		"NvimTreeToggle",
-		"NvimTreeRefresh",
+		"NvimTreeFocus",
+		"NvimTreeCollapse",
 		"NvimTreeFindFile",
+		"NvimTreeFindFileToggle",
 	},
 	config = function()
 		require("nvim-web-devicons").setup({
@@ -38,6 +39,9 @@ return {
 				ignore = false,
 				timeout = 500,
 			},
+      view = {
+        side = "right",
+      },
 			renderer = {
 				icons = {
 					glyphs = {

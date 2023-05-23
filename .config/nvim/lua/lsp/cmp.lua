@@ -56,7 +56,7 @@ cmp.setup({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
-		["<CR>"] = cmp.mapping.confirm({ select = true, behavior = cmp.ConfirmBehavior.Replace }),
+		["<CR>"] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }),
 		["<Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -64,8 +64,6 @@ cmp.setup({
 				luasnip.expand()
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
-			elseif has_words_before() then
-				cmp.complete()
 			else
 				fallback()
 			end
@@ -103,7 +101,6 @@ cmp.setup({
 		{ name = "path" },
 		{ name = "nvim_lsp_signature_help" },
 		{ name = "nvim_lua", keyword_length = 2 },
-		{ name = "vsnip", keyword_length = 2 },
 		{ name = "calc" },
 	},
 	confirm_opts = {
@@ -118,4 +115,11 @@ cmp.setup({
 		ghost_text = false,
 		native_menu = false,
 	},
+  matching = {
+    disallow_fuzzy_matching = true,
+    disallow_fullfuzzy_matching = true,
+    disallow_partial_fuzzy_matching = true,
+    disallow_partial_matching = true,
+    disallow_prefix_unmatching = false,
+  }
 })
