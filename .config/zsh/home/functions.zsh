@@ -33,23 +33,3 @@ function gdiff() {
     git diff $@ --name-only | fzf -m --ansi --preview $preview --bind ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down
     cd - &> /dev/null
 }
-
-function lazy_load_nvm() {
-    unset -f npm node nvm
-    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
-}
-
-function npm() {
-    lazy_load_nvm
-    npm $@
-}
-
-function node() {
-    lazy_load_nvm
-    node $@
-}
-
-function nvm() {
-    lazy_load_nvm
-    nvm $@
-}
