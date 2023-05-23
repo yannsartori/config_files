@@ -1,6 +1,5 @@
 return {
 	"lewis6991/gitsigns.nvim",
-	pin = true,
 	event = "BufReadPre",
 	config = function()
 		local map = require("utils").map

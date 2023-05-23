@@ -1,8 +1,12 @@
 #!/bin/bash
 tmux new-session -d
-tmux rename-window 'config'
 tmux rename-session 'config'
-tmux split-window -h -p 50
-tmux select-pane -t 0
-tmux -2 attach-session
-
+tmux rename-window 'nvim'
+tmux send-keys 'cd nvim ; nvim init.lua' C-m
+tmux new-window
+tmux rename-window 'tmux'
+tmux send-keys 'cd tmux ; nvim tmux.conf' C-m
+tmux new-window
+tmux rename-window 'alacritty'
+tmux send-keys 'cd alacritty ; nvim alacritty.yml' C-m
+tmux a -t config:nvim

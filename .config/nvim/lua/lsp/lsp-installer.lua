@@ -5,17 +5,19 @@ local all_servers = {
 	"cssls",
 	"dockerls",
 	"elixirls",
+  "gopls",
 	"html",
 	"jsonls",
 	"pyright",
   "rust_analyzer",
-	"sumneko_lua",
+	"lua_ls",
+  "svelte",
 	"taplo",
 	"tsserver",
 	"yamlls",
 	"zk", -- (brew install zk)
 }
-local extra_configs = { "angularls", "jsonls", "pylsp", "pyright", "sumneko_lua" }
+local extra_configs = { "angularls", "jsonls", "pylsp", "pyright", "lua_ls" }
 
 require("mason").setup({})
 require("mason-lspconfig").setup({

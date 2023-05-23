@@ -1,6 +1,7 @@
 return {
 	settings = {
 		python = {
+      pythonVersion = "3.9",
 			analysis = {
 				typeCheckingMode = "off",
         reportMissingImports = "error",

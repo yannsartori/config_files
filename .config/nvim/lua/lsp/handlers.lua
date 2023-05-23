@@ -76,7 +76,7 @@ local function formatting_map(client, bufnr)
 		["cssls"] = true,
 		["html"] = true,
 		["pyright"] = true,
-		["sumneko_lua"] = true,
+		["lua_ls"] = true,
 		["tsserver"] = true,
 		["yamlls"] = true,
 		["zk"] = true,
@@ -99,14 +99,25 @@ local function lsp_keymaps(client, bufnr)
 	nmap("gD", "<cmd>Lspsaga peek_definition<CR>", opts)
 	nmap("K", "<cmd>Lspsaga hover_doc<CR>", opts)
 	nmap("gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
-	nmap("<leader>rn", "<cmd>Lspsaga rename<CR>", opts)
+	nmap(
+    "<leader>rn",
+    function()
+      vim.cmd("Lspsaga rename")
+      vim.cmd("silent! wa")
+    end,
+    opts
+  )
 	nmap("gE", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
 	nmap("ge", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 	nmap("gl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 
 	-- Less common
 	nmap("gi", "<cmd>Telescope lsp_implementations<CR>", opts)
-	nmap("gy", "<cmd>Telescope lsp_type_definitions<CR>", opts)
+	nmap("gy", "<cmd>Lspsaga goto_type_definition<CR>", opts)
+	nmap("gY", "<cmd>Lspsaga peek_type_definition<CR>", opts)
+	nmap("<leader>o", "<cmd>Lspsaga outline<CR>", opts)
+	-- nmap("<leader>ci", "<cmd>Lspsaga incoming_calls<CR>", opts)
+	-- nmap("<leader>co", "<cmd>Lspsaga outgoing_calls<CR>", opts)
 	formatting_map(client, bufnr)
 	map({ "v", "x" }, "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 	nmap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
@@ -118,7 +129,6 @@ function M.on_attach(client, bufnr)
 	}
 	if inferior_servers[client.name] ~= nil then
 		client.server_capabilities.renameProvider = false
-		client.server_capabilities.definitionProvider = false
 		client.server_capabilities.referencesProvider = false
 	end
 
@@ -126,8 +136,15 @@ function M.on_attach(client, bufnr)
 	lsp_highlight_document(client)
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-M.capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+-- Add better folding
+capabilities.textDocument.foldingRange = {
+  dynamicRegistration = false,
+  lineFoldingOnly = true,
+}
+-- Add completion
+M.capabilities = capabilities
+
 
 -- Do so we can bind global functions
 _G.lsp.handlers = M
