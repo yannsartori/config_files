@@ -5,7 +5,7 @@ return {
 		require("telescope").load_extension("fzf")
 		require("telescope").setup({
 			defaults = {
-				prompt_prefix = "  ",
+				prompt_prefix = " 󰍉 ",
 				selection_caret = "  ",
 				entry_prefix = "  ",
 				layout_config = {
@@ -51,20 +51,20 @@ return {
 					COLORTERM = "truecolor",
 				},
 				file_ignore_patterns = {
-          ".ipynb",
-          ".ju.",
-          "e2e",
-          "lua-language-server",
-          "node_modules",
-          "swagger",
-        },
+					".ipynb",
+					".ju.",
+					"e2e",
+					"lua-language-server",
+					"node_modules",
+					"swagger",
+				},
 			},
-      extensions = {
-        file_browser = {
-          theme = "ivy",
-          hijack_netrw = true,
-        }
-      }
+			extensions = {
+				file_browser = {
+					theme = "ivy",
+					hijack_netrw = true,
+				},
+			},
 		})
 	end,
 }

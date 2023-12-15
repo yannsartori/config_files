@@ -70,26 +70,6 @@ local function lsp_highlight_document(client)
 end
 
 -- Mappings.
-local function formatting_map(client, bufnr)
-	local disabled_servers = { -- basically null_ls servers
-		["angularls"] = true,
-		["cssls"] = true,
-		["html"] = true,
-		["pyright"] = true,
-		["lua_ls"] = true,
-		["tsserver"] = true,
-		["yamlls"] = true,
-		["zk"] = true,
-	}
-
-	if disabled_servers[client.name] == nil then
-		vim.keymap.set("n", "<leader>f", function()
-			local params = require("vim.lsp.util").make_formatting_params({})
-			client.request("textDocument/formatting", params, nil, bufnr)
-		end, { buffer = bufnr })
-	end
-end
-
 local function lsp_keymaps(client, bufnr)
 	-- Prioritize LSPSaga > Telescope > builtin lsp
 	local opts = { buffer = bufnr }
@@ -98,27 +78,22 @@ local function lsp_keymaps(client, bufnr)
 	nmap("gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 	nmap("gD", "<cmd>Lspsaga peek_definition<CR>", opts)
 	nmap("K", "<cmd>Lspsaga hover_doc<CR>", opts)
-	nmap("gr", "<cmd>Lspsaga lsp_finder<CR>", opts)
-	nmap(
-    "<leader>rn",
-    function()
-      vim.cmd("Lspsaga rename")
-      vim.cmd("silent! wa")
-    end,
-    opts
-  )
-	nmap("gE", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
-	nmap("ge", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
+	nmap("gr", "<cmd>Lspsaga finder<CR>", opts)
+	nmap("<leader>rn", function()
+		vim.cmd("Lspsaga rename")
+		vim.cmd("silent! wa")
+	end, opts)
+	nmap("]e", "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+	nmap("[e", "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
 	nmap("gl", "<cmd>Lspsaga show_line_diagnostics<CR>", opts)
 
 	-- Less common
-	nmap("gi", "<cmd>Telescope lsp_implementations<CR>", opts)
+	nmap("<leader>gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 	nmap("gy", "<cmd>Lspsaga goto_type_definition<CR>", opts)
 	nmap("gY", "<cmd>Lspsaga peek_type_definition<CR>", opts)
 	nmap("<leader>o", "<cmd>Lspsaga outline<CR>", opts)
 	-- nmap("<leader>ci", "<cmd>Lspsaga incoming_calls<CR>", opts)
 	-- nmap("<leader>co", "<cmd>Lspsaga outgoing_calls<CR>", opts)
-	formatting_map(client, bufnr)
 	map({ "v", "x" }, "<leader>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
 	nmap("<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 end
@@ -139,12 +114,11 @@ end
 local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 -- Add better folding
 capabilities.textDocument.foldingRange = {
-  dynamicRegistration = false,
-  lineFoldingOnly = true,
+	dynamicRegistration = false,
+	lineFoldingOnly = true,
 }
 -- Add completion
 M.capabilities = capabilities
-
 
 -- Do so we can bind global functions
 _G.lsp.handlers = M

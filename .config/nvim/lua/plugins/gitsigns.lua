@@ -2,8 +2,6 @@ return {
 	"lewis6991/gitsigns.nvim",
 	event = "BufReadPre",
 	config = function()
-		local map = require("utils").map
-
 		require("gitsigns").setup({
 			signs = {
 				add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
@@ -15,13 +13,13 @@ return {
 				},
 				delete = {
 					hl = "GitSignsDelete",
-					text = "契",
+					text = "▎",
 					numhl = "GitSignsDeleteNr",
 					linehl = "GitSignsDeleteLn",
 				},
 				topdelete = {
 					hl = "GitSignsDelete",
-					text = "契",
+					text = "▎",
 					numhl = "GitSignsDeleteNr",
 					linehl = "GitSignsDeleteLn",
 				},
@@ -33,15 +31,6 @@ return {
 				},
 			},
 			current_line_blame = true,
-			on_attach = function(bufnr)
-				local gs = package.loaded.gitsigns
-
-				-- Actions
-				map("n", "<leader>cp", gs.preview_hunk)
-				map("n", "<leader>cd", function()
-					gs.diffthis("~")
-				end)
-			end,
 		})
 	end,
 }

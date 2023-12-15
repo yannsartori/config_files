@@ -39,9 +39,9 @@ return {
 				ignore = false,
 				timeout = 500,
 			},
-      view = {
-        side = "right",
-      },
+			view = {
+				side = "right",
+			},
 			renderer = {
 				icons = {
 					glyphs = {

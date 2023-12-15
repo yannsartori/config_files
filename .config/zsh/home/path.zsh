@@ -1,4 +1,5 @@
 path=(
+    "/usr/local/opt/libpq/bin"
     "$HOME/.local/share/nvim/lsp_servers/taplo"
     "$HOME/.local/bin"
     "$POETRY_HOME/bin"

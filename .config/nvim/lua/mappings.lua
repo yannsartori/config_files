@@ -7,19 +7,17 @@ imap("<M-BS>", "<C-W>", { remap = false })
 
 -- Better spell fixer
 nmap("<leader>sf", "<CMD>Telescope spell_suggest<CR>")
-nmap("gs", "]s")
-nmap("gS", "[s")
 
 -- Buffer mappings
 nmap("<leader>b", "<CMD>bp <BAR> bd #<CR>")
 
 -- Pair programming
 local relative_number_toggler = function()
-  if vim.api.nvim_win_get_option(0, "relativenumber") then
-    vim.api.nvim_win_set_option(0, "relativenumber", false)
-  else
-    vim.api.nvim_win_set_option(0, "relativenumber", true)
-  end
+	if vim.api.nvim_win_get_option(0, "relativenumber") then
+		vim.api.nvim_win_set_option(0, "relativenumber", false)
+	else
+		vim.api.nvim_win_set_option(0, "relativenumber", true)
+	end
 end
 nmap("<leader>\\", relative_number_toggler)
 
@@ -38,7 +36,7 @@ map({ "n", "v" }, "<C-_>", "<leader>!", { remap = true })
 -- Telescope {{
 nmap("<C-P>", "<CMD>Telescope find_files<CR>")
 nmap("<C-F>", "<CMD>Telescope live_grep<CR>")
-nmap("gb", "<CMD>Telescope buffers<CR>")
+nmap("<leader>gb", "<CMD>Telescope buffers<CR>")
 -- }}
 
 -- git-conflict {{
