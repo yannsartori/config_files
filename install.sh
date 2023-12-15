@@ -23,7 +23,8 @@ brew install \
     thefuck \
     tmux \
     yarn \
-    zk
+    zk \
+    zsh-syntax-highlighting
 
 # Casks
 brew tap homebrew/cask-fonts

@@ -1,4 +1,3 @@
-neofetch --disable memory
 base="$HOME/.config/zsh/butter"
 
 # Order here is important
