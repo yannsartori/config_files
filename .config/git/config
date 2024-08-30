@@ -25,7 +25,6 @@
 [user]
 	name = Yann Sartori
 	email = sartori2@llnl.gov
-
 [init]
 	defaultBranch = main
 
