@@ -26,3 +26,7 @@ complete, resource the `.zshrc` file.
     need to be run for every venv entered)
   1. Open Neovim with `nvim`. Wait for the packages to install.
   1. Reopen Neovim. Everything should work!!
+
+## Notes
+
+I keep all configuration for software I have used, even if I no longer use it.
