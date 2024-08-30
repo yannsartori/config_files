@@ -77,7 +77,6 @@ local function lsp_keymaps(client, bufnr)
 	-- Common mappings
 	nmap("gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 	nmap("gD", "<cmd>Lspsaga peek_definition<CR>", opts)
-	nmap("K", "<cmd>Lspsaga hover_doc<CR>", opts)
 	nmap("gr", "<cmd>Lspsaga finder<CR>", opts)
 	nmap("<leader>rn", function()
 		vim.cmd("Lspsaga rename")

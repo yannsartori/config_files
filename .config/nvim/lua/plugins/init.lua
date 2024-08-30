@@ -129,13 +129,18 @@ return {
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
 		opts = {
+			formatters = {
+				ruff_format = {
+					append_args = { "--exclude", "**/data/*" },
+				},
+			},
 			formatters_by_ft = {
 				lua = { "stylua" },
-				python = { "ruff" },
+				python = { "ruff_format", "ruff_fix" },
 				markdown = { "markdownlint" },
-				typescript = { "prettierd", "prettier" },
+				typescript = { "biome", "biome-check" },
 			},
-			format_on_save = {
+			format_after_save = {
 				async = true,
 			},
 		},
@@ -156,6 +161,7 @@ return {
 			require("lint").linters_by_ft = {
 				python = { "ruff" },
 				markdown = { "markdownlint" },
+				typescript = { "biomejs" },
 			}
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()
@@ -169,12 +175,6 @@ return {
 	-- HTML Plugins {{
 	{
 		"windwp/nvim-ts-autotag",
-	},
-	-- }}
-
-	-- Python Plugins {{
-	{
-		"Vimjas/vim-python-pep8-indent",
 	},
 	-- }}
 }
