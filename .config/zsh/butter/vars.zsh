@@ -3,6 +3,7 @@ export BAT_THEME="Catppuccin-mocha"
 export CLICOLOR=1
 export CPPFLAGS="-I/usr/local/opt/readline/include"
 export DISABLE_AUTO_TITLE=true
+export DOCKER_HOST="unix://$HOME/.rd/docker.sock"
 export EDITOR=nvim
 export HISTSIZE=999999999
 export LDFLAGS="-L/usr/local/opt/readline/lib"

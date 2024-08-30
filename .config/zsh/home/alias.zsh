@@ -16,7 +16,7 @@ alias vim='nvim'
 
 # System binaries
 alias ls='lsd'
-alias grep='grep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias grep='rg'
 alias cat='bat -P'
 
 # Random crap
