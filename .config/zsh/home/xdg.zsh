@@ -39,6 +39,10 @@ export NUGET_PACKAGES="$XDG_CACHE_HOME"/NuGetPackages
 export NVM_DIR="$XDG_DATA_HOME"/nvm
 # Opam
 export OPAMROOT="$XDG_DATA_HOME"/opam
+# Pex
+export PEX_ROOT="${XDG_CACHE_HOME}/pex"
+# Postgres
+export PSQL_HISTORY="${XDG_DATA_HOME}/psql_history"
 # Pyenv
 export PYENV_ROOT="$XDG_DATA_HOME"/pyenv
 # Pylint
@@ -55,5 +59,9 @@ export BUNDLE_USER_PLUGIN="$XDG_DATA_HOME"/bundle
 export CARGO_HOME="$XDG_DATA_HOME"/cargo
 # Rustup
 export RUSTUP_HOME="$XDG_DATA_HOME"/rustup
+# Stack
+export STACK_XDG=1
+# Sqllite
+export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
 # Zsh
 export HISTFILE="$XDG_STATE_HOME"/zsh/history

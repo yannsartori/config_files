@@ -7,13 +7,7 @@ export HISTSIZE=999999999
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
 export LDFLAGS="-L/usr/local/opt/readline/lib"
 export LSCOLORS=GxFxCxDxBxegedabagaced
-export PEX_ROOT="${XDG_CACHE_HOME}/pex"
-export PSQL_HISTORY="${XDG_DATA_HOME}/psql_history"
 export SAVEHIST=$HISTSIZE
-export SQLITE_HISTORY="${XDG_CACHE_HOME}/sqlite_history"
-export STACK_XDG=1
-export TERMINFO="${XDG_DATA_HOME}/terminfo"
-export TERMINFO_DIRS="${XDG_DATA_HOME}/terminfo:/usr/share/terminfo"
 export VISUAL=nvim
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
