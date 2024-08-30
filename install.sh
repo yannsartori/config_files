@@ -7,14 +7,13 @@
 brew install \
     bat \
     colima \
-    docker \
-    docker-compose \
     fd \
     fzf \
     git-delta \
+    jq \
     lazygit \
     lsd \
-    neofetch \
+    neovide \
     neovim \
     node \
     pyenv \
@@ -22,13 +21,18 @@ brew install \
     rust \
     thefuck \
     tmux \
-    yarn \
+    xdg-ninja \
     zk \
+    zsh-completions \
     zsh-syntax-highlighting
 
 # Casks
 brew tap homebrew/cask-fonts
-brew install --cask font-fira-mono-nerd-font font-liberation-nerd-font alacritty
+brew install --cask \
+    alacritty \
+    font-fira-mono-nerd-font \
+    font-liberation-nerd-font \
+    wezterm
 
 # Npm installations
 npm install --global yarn @angular/language-service@next typescript @angular/language-server markdownlint markdownlint-cli

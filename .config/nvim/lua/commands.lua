@@ -3,15 +3,15 @@ local opt = vim.opt
 local api = vim.api
 local fn = vim.fn
 
--- Less typing
-api.nvim_create_user_command("Status", function()
-	cmd("Telescope git_status")
-end, {})
-
 -- Get the path
 api.nvim_create_user_command("Path", function()
+	local git_root = vim.fs.dirname(vim.fs.find({ ".git" }, { upward = true })[1])
+	if git_root then
+		git_root = git_root .. "/"
+	end
 	local filename = vim.api.nvim_buf_get_name(0)
-	vim.cmd('let @+="' .. filename .. '"')
+	local formatted_name = filename:gsub(git_root or "", "")
+	vim.cmd('let @+="' .. formatted_name .. '"')
 end, {})
 
 -- Go back to where file was last opened.

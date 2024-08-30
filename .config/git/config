@@ -16,22 +16,27 @@
 
 
 [merge]
-    conflictstyle = diff3
+    conflictstyle = zdiff3
 
 [diff]
+    algorithm = histogram
     colorMoved = default
+
 [user]
 	name = Yann Sartori
-	email = yannsartori@gmail.com
+	email = sartori2@llnl.gov
 [init]
 	defaultBranch = main
+
 [color]
 	ui = true
+
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52
 	newNormal = green bold
 	newHighlight = green bold 22
+
 [color "diff"]
 	meta = 11
 	frag = magenta bold
@@ -40,3 +45,10 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+
+[pull]
+	rebase = true
+[help]
+    autocorrect = prompt
+[branch]
+    sort = -committerdate

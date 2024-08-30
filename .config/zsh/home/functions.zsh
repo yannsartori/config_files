@@ -33,3 +33,31 @@ function gdiff() {
     git diff $@ --name-only | fzf -m --ansi --preview $preview --bind ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down
     cd - &> /dev/null
 }
+
+function gcheckout {
+  # Lower the pattern and replace spaces with dashes
+  local glob="${*:l:gs/ /-}"
+  if [[ -z "$glob" ]]; then
+    print "Provide a branch glob"
+    return 1
+  fi
+
+  # Verify we are in a git repo
+  git rev-parse --is-inside-work-tree &> /dev/null
+  if [[ $? -ne 0 ]]; then
+    print "Not in git repo"
+    return 1
+  fi
+
+  # List the remotes (in case we don't have it locally), get the first match,
+  # and strip the leading `origin/`
+  branch_name=$(git branch -lr | grep "$glob" | head -n 1 | xargs)
+  branch_name="${branch_name:gs/origin\///}"
+  if [[ -z "$branch_name" ]]; then
+    print "Could not find branch with glob ${glob}"
+    return 1
+  fi
+
+  git checkout "$branch_name"
+}
+
